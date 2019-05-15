@@ -1,9 +1,11 @@
 package com.zhong.oddpoint.main.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,14 +29,16 @@ import com.zhong.oddpoint.main.bean.car_data;
 import com.zhong.oddpoint.main.port.Car_Info_Parse;
 import com.zhong.oddpoint.main.request.CallInfo;
 import com.zhong.oddpoint.main.request.CallFare;
+import com.zhong.oddpoint.main.request.CallStopData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class TicketListActivity extends AppCompatActivity implements View.OnClickListener, Car_Info_Parse, SwipeRefreshLayout.OnRefreshListener {
+public class TicketListActivity extends AppCompatActivity implements View.OnClickListener, Car_Info_Parse, SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private ListView listView;
     private List<Map<String, String>> cartInfo;
     private PurchaseList purchaseList;
@@ -66,6 +71,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         setStatusBar();
         initView();
         getScreenWH();
+        onLoadData();
     }
 
     public void getScreenWH() {
@@ -101,6 +107,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         swipeRefreshListView.setOnRefreshListener(this);
         findViewById(R.id.back_key).setOnClickListener(this);
 
+        listView.setOnItemClickListener(this);
         initData();
     }
 
@@ -118,7 +125,6 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         if (start_stationCode != null && end_stationCode != null) {
             form_station_view.setText(start_stationCode.getStation_name());
             to_station_view.setText(end_stationCode.getStation_name());
-            callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
         } else {
             address.setVisibility(View.GONE);
             more_view.setVisibility(View.GONE);
@@ -136,7 +142,35 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+    /*
+     * 首次加载数据需要等待Activity生命执行完才可调用PopupWindow
+     * */
+    public void onLoadData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            View view = getLayoutInflater().inflate(R.layout.data_load, null);
+                            loadPopup = PopupFactory.LoadPopup(view, getWindow());
+                            callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
 
+
+    /*
+     * 刷新车次信息
+     * */
     @Override
     public void onRefresh() {
         SharedPreferences car_type = getSharedPreferences("car_type", MODE_PRIVATE);
@@ -155,7 +189,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                         swipeRefreshListView.setVisibility(View.GONE);
                         swipeRefreshNoCar.setVisibility(View.VISIBLE);
                         point_info.setText("呀，当前线路没有列车跑路了~");
-                        if (loadPopup!=null&&loadPopup.isShowing()) {
+                        if (loadPopup != null && loadPopup.isShowing()) {
                             loadPopup.dismiss();
                         }
                     } else {
@@ -166,13 +200,13 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                     }
                     break;
                 case 666:
-                    if (loadPopup!=null&&loadPopup.isShowing()) {
+                    if (loadPopup != null && loadPopup.isShowing()) {
                         loadPopup.dismiss();
                     }
                     purchaseList.notifyDataSetChanged();
                     break;
                 case 404:
-                    if (loadPopup!=null&&loadPopup.isShowing()) {
+                    if (loadPopup != null && loadPopup.isShowing()) {
                         loadPopup.dismiss();
                     }
                     Toast.makeText(TicketListActivity.this, "接口已改或网络错误", Toast.LENGTH_SHORT).show();
@@ -221,7 +255,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (loadPopup!=null&&loadPopup.isShowing()) {
+                if (loadPopup != null && loadPopup.isShowing()) {
                     loadPopup.dismiss();
                 }
                 swipeRefreshNoCar.setRefreshing(false);
@@ -242,10 +276,10 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.back_key:
+            case R.id.back_key://返回
                 finish();
                 break;
-            case R.id.more_view:
+            case R.id.more_view://筛选车次
                 View view = getLayoutInflater().inflate(R.layout.popup_layout, null);
                 popupWindow = PopupFactory.ShowPopup(view, heightPixels / 4, getWindow());
                 view.findViewById(R.id.close_popup).setOnClickListener(this);
@@ -275,7 +309,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
             case R.id.close_popup:
                 popupWindow.dismiss();
                 break;
-            case R.id.AllCarLayout:
+            case R.id.AllCarLayout://查看全部车型
                 SharedPreferences.Editor car_type01 = getSharedPreferences("car_type", MODE_PRIVATE).edit();
                 car_type01.putInt("cartype", 200).apply();
                 all_car.setVisibility(View.VISIBLE);
@@ -286,7 +320,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 loadPopup = PopupFactory.LoadPopup(view01, getWindow());
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                 break;
-            case R.id.GDCCarLayout:
+            case R.id.GDCCarLayout://只查看GDC车型
                 SharedPreferences.Editor car_type02 = getSharedPreferences("car_type", MODE_PRIVATE).edit();
                 car_type02.putInt("cartype", 201).apply();
                 all_car.setVisibility(View.GONE);
@@ -297,7 +331,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 loadPopup = PopupFactory.LoadPopup(view02, getWindow());
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 201);
                 break;
-            case R.id.KCarLayout:
+            case R.id.KCarLayout://只查看火车
                 SharedPreferences.Editor car_type03 = getSharedPreferences("car_type", MODE_PRIVATE).edit();
                 car_type03.putInt("cartype", 202).apply();
                 all_car.setVisibility(View.GONE);
@@ -309,5 +343,18 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 202);
                 break;
         }
+    }
+
+    /*
+     * 查看火车经停信息
+     * */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        car_data car_data = car_data_list.get(position);
+        Intent intent = new Intent(this, StopActivity.class);
+        intent.putExtra("start_time", start_date);
+        intent.putExtra("dataset", car_data);
+        intent.putExtra("toSiteName", end_stationCode.getStation_name());
+        startActivity(intent);
     }
 }

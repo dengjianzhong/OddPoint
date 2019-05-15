@@ -1,6 +1,8 @@
 package com.zhong.oddpoint.main.bean;
 
-public class car_data {
+import java.io.Serializable;
+
+public class car_data implements Serializable {
     private String yd;
     private String id;
     private String car_id;

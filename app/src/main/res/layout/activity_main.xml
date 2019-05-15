@@ -17,10 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="72dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@color/title_bg_color">
+            android:fitsSystemWindows="true"
+            android:clipToPadding="true"
+            android:background="@drawable/title_color">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,6 +30,7 @@
                 android:textColor="#ffffff"
                 android:gravity="center"
                 android:textSize="20sp"
+                android:layout_marginBottom="3dp"
                 android:text="火车票查询"/>
         </LinearLayout>
         <android.support.v4.view.ViewPager

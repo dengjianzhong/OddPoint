@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EditLineColor" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/edit_line_coloe</item>
+        <item name="colorControlActivated">@color/title_bg_color</item>
+    </style>
 </resources>

@@ -34,7 +34,7 @@ public class PopupFactory {
     public static PopupWindow LoadPopup(View view, final Window window){
         PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setOutsideTouchable(false);
-        popupWindow.setFocusable(true);
+//        popupWindow.setFocusable(true);
 //        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
         popupWindow.showAtLocation(view,Gravity.CENTER,0,0);
         //打开弹窗，背景变暗淡
