@@ -21,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.zhong.d_oddpoint.database.table.StationCode;
 import com.zhong.d_oddpoint.utils.PopupFactory;
 import com.zhong.oddpoint.main.R;
@@ -264,7 +265,6 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                     swipeRefreshListView.setVisibility(View.GONE);
                     swipeRefreshNoCar.setVisibility(View.VISIBLE);
                     point_info.setText("网络开小差了,下拉刷新");
-
                     return;
                 }
                 Toast.makeText(TicketListActivity.this, content, Toast.LENGTH_SHORT).show();
@@ -357,4 +357,6 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
         intent.putExtra("toSiteName", end_stationCode.getStation_name());
         startActivity(intent);
     }
+
+
 }

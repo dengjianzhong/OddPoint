@@ -1,14 +1,14 @@
 package com.zhong.oddpoint.main.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -16,28 +16,32 @@ import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.adapter.MyFragmentAdapter;
 import com.zhong.oddpoint.main.fragment.OrderForm_Fragment;
 import com.zhong.oddpoint.main.fragment.TrainTicket_Fragment;
+import com.zhong.oddpoint.main.request.CallTrainNo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.ashokvarma.bottomnavigation.BottomNavigationBar.MODE_FIXED;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private BottomNavigationBar bottom_navigation_bar;
     private ViewPager viewPager;
-    private List<Fragment> fragmentList=new ArrayList<>();
+    private List<Fragment> fragmentList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setStatusBar();
         viewPager = findViewById(R.id.viewPager);
-        bottom_navigation_bar=findViewById(R.id.bottom_navigation_bar);
+        bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
+        findViewById(R.id.search).setOnClickListener(this);
         setBNB();
         initLayout();
     }
-    public void setStatusBar(){
+
+    public void setStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            Window window = getWindow();
 //            //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
@@ -51,28 +55,36 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void setBNB(){
+    public void setBNB() {
         bottom_navigation_bar.setMode(MODE_FIXED) // 设置mode
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)  // 背景样式
                 .setInActiveColor("#929292") // 未选中状态颜色
                 .setActiveColor("#1296db") // 选中状态颜色
-                .addItem(new BottomNavigationItem(R.mipmap.main_page,"首页"))
-                .addItem(new BottomNavigationItem(R.mipmap.dd,"订单"))
-                .addItem(new BottomNavigationItem(R.mipmap.yh,"个人中心"))
-                .addItem(new BottomNavigationItem(R.mipmap.setting,"设置"))
+                .addItem(new BottomNavigationItem(R.mipmap.main_page, "首页"))
+                .addItem(new BottomNavigationItem(R.mipmap.dd, "订单"))
+                .addItem(new BottomNavigationItem(R.mipmap.yh, "个人中心"))
+                .addItem(new BottomNavigationItem(R.mipmap.setting, "设置"))
                 .setFirstSelectedPosition(0) //设置默认选中位置
                 .initialise();  // 提交初始化（完成配置）
     }
 
-    public void initLayout(){
-        TrainTicket_Fragment trainTicket_fragment=new TrainTicket_Fragment();
-        fragmentList.add(trainTicket_fragment);
+    public void initLayout() {
 
-        OrderForm_Fragment orderFormFragment=new OrderForm_Fragment();
+        TrainTicket_Fragment trainTicket_fragment = new TrainTicket_Fragment();
+        fragmentList.add(trainTicket_fragment);
+        OrderForm_Fragment orderFormFragment = new OrderForm_Fragment();
         fragmentList.add(orderFormFragment);
-        MyFragmentAdapter fragmentAdapter=new MyFragmentAdapter(getSupportFragmentManager());
+        MyFragmentAdapter fragmentAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         fragmentAdapter.setData(fragmentList);
         viewPager.setAdapter(fragmentAdapter);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+
+//        Toast.makeText(this, "该功能正在开发中", Toast.LENGTH_SHORT).show();
+//        startActivity(new Intent(this,SearchActivity.class));
+        new CallTrainNo(this).downloadData();
     }
 }

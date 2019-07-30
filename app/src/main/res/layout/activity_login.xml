@@ -9,20 +9,48 @@
     <com.zhong.oddpoint.main.view.MyVideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@mipmap/lbg02"/>
+    <ImageView
+        android:id="@+id/finish"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="16dp"
+        android:src="@mipmap/cha" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_centerInParent="true">
+        android:paddingLeft="16dp"
+        android:paddingTop="76dp"
+        android:paddingRight="16dp">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@mipmap/login_title" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="奇 点"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="italic" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
             android:orientation="horizontal">
 
             <EditText
@@ -32,19 +60,18 @@
                 android:ems="10"
                 android:hint="账号/邮箱/手机号"
                 android:inputType="textPersonName"
-                android:textSize="16sp"
-                android:textColorHint="#ffffff"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
                 android:paddingLeft="8dp"
                 android:paddingBottom="16dp"
-                android:theme="@style/EditLineColor"/>
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:theme="@style/EditLineColor" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:orientation="horizontal">
 
             <EditText
@@ -55,13 +82,14 @@
                 android:ems="10"
                 android:hint="密 码"
                 android:inputType="textPassword"
-                android:textSize="16sp"
-                android:textColorHint="#ffffff"
-                android:textColor="#ffffff"
-                android:textStyle="bold"
                 android:paddingLeft="8dp"
                 android:paddingBottom="16dp"
-                android:theme="@style/EditLineColor"/>
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="6dp"
+                android:theme="@style/EditLineColor" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,26 +97,28 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/yz_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="6dp"
-                android:textColor="@color/title_bg_color"
-                android:textSize="15sp"
-                android:text="验证信息：" />
+                android:textColor="#f00"
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
                     android:id="@+id/flush"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="right"
                     android:layout_marginRight="6dp"
+                    android:visibility="gone"
                     android:src="@mipmap/flush" />
             </LinearLayout>
 
@@ -99,18 +129,20 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:layout_marginTop="6dp"
+            android:alpha="0.7"
             android:scaleType="fitXY"
+
             android:src="@mipmap/img" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/select_button"
             android:layout_marginTop="16dp"
+            android:background="@drawable/select_button"
+            android:text="登 陆"
             android:textColor="#ffffff"
-            android:textSize="17sp"
-            android:text="登 陆" />
+            android:textSize="17sp" />
     </LinearLayout>
 
     <TextView
@@ -119,9 +151,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="16dp"
         android:textSize="13sp"
         android:textColor="#ffffff"
         android:clickable="true"
-        android:text="无账号？跳过登录" />
+        android:autoLink="all"
+        android:text="没有账号？跳过登录" />
 </RelativeLayout>

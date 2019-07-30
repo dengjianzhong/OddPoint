@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.zaaach.citypicker.CityPickerActivity;
@@ -33,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.EventListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,14 +153,18 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.select_button:
-                Intent intent = new Intent(getActivity(), TicketListActivity.class);
-                intent.putExtra("start_date", dateView.getText());
-                intent.putExtra("week", whichDayView.getText());
-                if (start_stationCode != null && end_stationCode != null) {
-                    intent.putExtra("start_name", start_stationCode);
-                    intent.putExtra("end_name", end_stationCode);
+                if (!local1.getText().equals("起始地")&&!local2.getText().equals("目的地")) {
+                    Intent intent = new Intent(getActivity(), TicketListActivity.class);
+                    intent.putExtra("start_date", dateView.getText());
+                    intent.putExtra("week", whichDayView.getText());
+                    if (start_stationCode != null && end_stationCode != null) {
+                        intent.putExtra("start_name", start_stationCode);
+                        intent.putExtra("end_name", end_stationCode);
+                    }
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getContext(), "请选择起始地或目的地", Toast.LENGTH_SHORT).show();
                 }
-                startActivity(intent);
                 break;
             case R.id.selece_date:
                 startActivityForResult(new Intent(getActivity(), DateActivity.class), 0);

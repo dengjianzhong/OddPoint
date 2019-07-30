@@ -34,6 +34,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:replace="android:icon">
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
@@ -48,15 +49,15 @@
         <activity
             android:name="com.zaaach.citypicker.CityPickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CityPicker.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="f26f87cc25a5420ef1d2f42146279979" />
+            android:value="c3de5dfd8eb674ca0dcb4334c4f28143" />
 
         <activity android:name=".activity.DetailActivity" />
-        <activity android:name=".activity.StopActivity"></activity>
+        <activity android:name=".activity.StopActivity" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

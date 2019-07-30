@@ -46,4 +46,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/ormlite-core-5.1.jar')
     implementation files('libs/ormlite-android-5.1.jar')
+    implementation 'com.airbnb.android:lottie:2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'org.jetbrains:annotations-java5:15.0'
+
 }
