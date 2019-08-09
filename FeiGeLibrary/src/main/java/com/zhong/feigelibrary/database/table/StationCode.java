@@ -1,4 +1,4 @@
-package com.zhong.d_oddpoint.database.table;
+package com.zhong.feigelibrary.database.table;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

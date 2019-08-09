@@ -1,4 +1,4 @@
-package com.zhong.d_oddpoint.database;
+package com.zhong.feigelibrary.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

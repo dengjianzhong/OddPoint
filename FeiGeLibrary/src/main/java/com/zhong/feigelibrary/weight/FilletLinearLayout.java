@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 /**
- * 可以设置点击背景效果的线性布局
+ * 主要功能：1、可以设置点击背景效果的线性布局  2、设置圆角布局
  */
 public class FilletLinearLayout extends LinearLayout
 {
@@ -401,7 +401,7 @@ public class FilletLinearLayout extends LinearLayout
 	    }
 	}
 	
-    
+
     @SuppressWarnings("deprecation")
 	@Override
     protected void drawableStateChanged()
@@ -424,12 +424,12 @@ public class FilletLinearLayout extends LinearLayout
     {
         return who == mBackground || super.verifyDrawable(who);
     }
-    
+
     /**
      * 背景的状态变化会调用此方法
      */
     @Override
-    public void refreshDrawableState() 
+    public void refreshDrawableState()
     {
     	super.refreshDrawableState();
     	drawableStateChanged();
