@@ -26,7 +26,7 @@ public class ToastFactory extends Toast {
     private void initParams() {
         padding = dip2px(context, 13);
         this.setDuration(Toast.LENGTH_SHORT);
-        this.setGravity(Gravity.BOTTOM, 0, 200);
+        this.setGravity(Gravity.BOTTOM, 0, 260);
     }
 
     /**

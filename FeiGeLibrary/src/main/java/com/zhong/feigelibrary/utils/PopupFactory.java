@@ -84,4 +84,9 @@ public class PopupFactory {
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
+
+    private View getView(){
+
+        return null;
+    }
 }
