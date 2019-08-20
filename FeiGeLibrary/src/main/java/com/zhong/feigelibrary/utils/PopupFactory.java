@@ -23,7 +23,7 @@ public class PopupFactory {
     private static Window window;
 
     public static PopupWindow ShowPopup(Context context, View view) {
-        PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, getScreenData(context)/2);
+        PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, getScreenData(context) / 2);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(true);
         popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
@@ -45,11 +45,12 @@ public class PopupFactory {
         return popupWindow;
     }
 
-    public static PopupWindow LoadPopup(View view, final Window window) {
+    public static PopupWindow LoadPopup(Context context, View view) {
         PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        window = ((Activity) context).getWindow();
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.alpha = 0.7f;
         window.setAttributes(attributes);
@@ -85,7 +86,7 @@ public class PopupFactory {
         return displayMetrics.heightPixels;
     }
 
-    private View getView(){
+    private View getView() {
 
         return null;
     }
