@@ -22,13 +22,14 @@ public class PopupFactory {
 
     private static Window window;
 
-    public static PopupWindow ShowPopup(Context context, View view) {
+    public static PopupWindow showPopupWindow(Context context, View view, int position) {
         PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, getScreenData(context) / 2);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(true);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+        popupWindow.showAtLocation(view, position, 0, 0);
         //打开弹窗，背景变暗淡
         window = ((Activity) context).getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.alpha = 0.7f;
         window.setAttributes(attributes);
@@ -45,12 +46,13 @@ public class PopupFactory {
         return popupWindow;
     }
 
-    public static PopupWindow LoadPopup(Context context, View view) {
+    public static PopupWindow loadPopupWindow(Context context, View view, int position) {
         PopupWindow popupWindow = new PopupWindow(view, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         popupWindow.setOutsideTouchable(false);
         popupWindow.setFocusable(true);
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(view, position, 0, 0);
         window = ((Activity) context).getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         WindowManager.LayoutParams attributes = window.getAttributes();
         attributes.alpha = 0.7f;
         window.setAttributes(attributes);
@@ -86,8 +88,8 @@ public class PopupFactory {
         return displayMetrics.heightPixels;
     }
 
-    private View getView() {
-
-        return null;
+    private static int dip2px(Context context, float dipValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
     }
 }

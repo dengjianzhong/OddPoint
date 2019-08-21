@@ -19,7 +19,7 @@ public class ThreadPoolUtil {
     private static ExecutorService executorService;
     private static ThreadPoolUtil threadPoolUtil;
 
-    public ThreadPoolExecutor initThreadPool() {
+    private ThreadPoolExecutor initThreadPool() {
         BlockingQueue blockingQueue = new LinkedBlockingDeque<Runnable>(512);
         ThreadPoolExecutor executorService = new ThreadPoolExecutor(corePoolNumber, corePoolNumber * 2, 1L, TimeUnit.SECONDS, blockingQueue);
         return executorService;
@@ -31,5 +31,11 @@ public class ThreadPoolUtil {
             executorService = threadPoolUtil.initThreadPool();
         }
         return executorService;
+    }
+
+    public static void closeThreadPool() {
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 }

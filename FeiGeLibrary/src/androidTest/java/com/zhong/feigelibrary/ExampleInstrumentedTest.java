@@ -1,4 +1,4 @@
-package com.zhong.d_oddpoint;
+package com.zhong.feigelibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

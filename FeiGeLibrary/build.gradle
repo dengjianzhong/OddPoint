@@ -4,7 +4,6 @@ android {
     compileSdkVersion 28
 
 
-
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 28
@@ -31,7 +30,7 @@ android {
 //        into('libs/')
 //        include('classes.jar')
 ////重命名
-//        rename ('classes.jar', 'd_oddpoint.jar')
+//        rename('classes.jar', 'd_oddpoint.jar')
 //    }
 //
 //    makeJar.dependsOn(build)
@@ -49,5 +48,4 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.1.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'org.jetbrains:annotations-java5:15.0'
-
 }

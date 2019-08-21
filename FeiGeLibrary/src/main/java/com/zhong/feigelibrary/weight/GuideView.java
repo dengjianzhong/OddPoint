@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.AnimationSet;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,16 +17,14 @@ import android.widget.TextView;
  * 引导视图  注意：PopupWindow的标准宽高 width=dip2px(context,260) ,height=dip2px(context,160)
  */
 //TODO tipTextView的计算公式：((height/3)*2+5)-32
-public class GuideView {
-    private RelativeLayout.LayoutParams layoutParams;
+public class GuideView extends RelativeLayout {
+    private LayoutParams layoutParams;
     private LinearLayout.LayoutParams params;
     private float textSize = 16F;
     private Context context;
     private onSelectListener onSelectListener;
-    private TextView cancelView;
-    private View splitViewV;
-    private TextView submitView;
     private int height;
+    private LinearLayout bottomLinearView;
 
     /**
      * Instantiates a new Guide view.
@@ -33,29 +33,30 @@ public class GuideView {
      * @param onSelectListener the on select listener
      */
     public GuideView(Context context, GuideView.onSelectListener onSelectListener, int height) {
+        super(context);
         this.context = context;
         this.onSelectListener = onSelectListener;
-        this.height=((height/3)*2+5)-32;
+        this.height = ((height / 3) * 2 + 5) - 32;
     }
 
     @SuppressLint("ResourceType")
-    public View getView(String hintMsg, String cancelButtonText, String submitButtonText) {
+    public void iniView(String hintMsg, String... btnText) {
 
         int margin = dip2px(context, 16);
         //----------------根布局----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        RelativeLayout relativeLayout = new RelativeLayout(context);
-        relativeLayout.setLayoutParams(layoutParams);
+        layoutParams = new LayoutParams(-1, -1);
+        this.setLayoutParams(layoutParams);
+        this.setAnimation(getShowAnimation());
 
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(23);
         gradientDrawable.setColor(Color.WHITE);
 
-        relativeLayout.setBackground(gradientDrawable);
+        this.setBackground(gradientDrawable);
 
 
         //----------------提示文本----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, dip2px(context,height));
+        layoutParams = new LayoutParams(-1, dip2px(context, height));
         layoutParams.addRule(RelativeLayout.ABOVE | RelativeLayout.CENTER_HORIZONTAL);
         layoutParams.setMargins(margin, margin, margin, margin);
         TextView tipTextView = new TextView(context);
@@ -68,172 +69,102 @@ public class GuideView {
         tipTextView.setGravity(Gravity.CENTER);
         tipTextView.setLineSpacing(10F, 1);
         tipTextView.setText(hintMsg);
-        relativeLayout.addView(tipTextView);
+        this.addView(tipTextView);
 
 
         //----------------底部根视图----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        layoutParams.addRule(RelativeLayout.BELOW,tipTextView.getId());
+        layoutParams = new LayoutParams(-1, -1);
+        layoutParams.addRule(RelativeLayout.BELOW, tipTextView.getId());
         RelativeLayout bottomView = new RelativeLayout(context);
         bottomView.setLayoutParams(layoutParams);
-        relativeLayout.addView(bottomView);
+        this.addView(bottomView);
 
         //----------------横向分割线 ----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, 1);
+        layoutParams = new LayoutParams(-1, 1);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         View splitViewH = new View(context);
         splitViewH.setId(0x19900000);
         splitViewH.setLayoutParams(layoutParams);
         splitViewH.setBackgroundColor(Color.parseColor("#D5D5D5"));
-        splitViewH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSelectListener.onCancel();
-            }
-        });
         bottomView.addView(splitViewH);
 
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
+        layoutParams = new LayoutParams(-1, -1);
         layoutParams.addRule(RelativeLayout.BELOW, splitViewH.getId());
-        LinearLayout bottomLinearView = new LinearLayout(context);
+        bottomLinearView = new LinearLayout(context);
         bottomLinearView.setLayoutParams(layoutParams);
         bottomLinearView.setOrientation(LinearLayout.HORIZONTAL);
         bottomView.addView(bottomLinearView);
 
 
-        //----------------取消按钮 ----------------
-        params = new LinearLayout.LayoutParams(-2, -1);
-        params.weight = 1;
-        cancelView = new TextView(context);
-        cancelView.setLayoutParams(params);
-        cancelView.setGravity(Gravity.CENTER);
-        cancelView.setText(cancelButtonText);
-        cancelView.setTextSize(textSize);
-        cancelView.setClickable(true);
-        cancelView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSelectListener.onCancel();
+        if (btnText != null && btnText.length > 0) {
+            for (int i = 0; i < btnText.length; i++) {
+                params = new LinearLayout.LayoutParams(-2, -1);
+                params.weight = 1;
+                TextView  btnView = new TextView(context);
+                btnView.setTag(i);
+                btnView.setLayoutParams(params);
+                btnView.setGravity(Gravity.CENTER);
+                btnView.setText(btnText[i]);
+                btnView.setTextSize(textSize);
+//                btnView.setTypeface(Typeface.DEFAULT_BOLD);
+//                btnView.setTextColor(Color.parseColor("#00b839"));
+                btnView.setClickable(true);
+                btnView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (null == view) {
+                            return;
+                        }
+                        Integer integer = (Integer) view.getTag();
+                        if (null != integer) {
+                            int tag = integer.intValue();
+                            if (null != onSelectListener) {
+                                onSelectListener.onPopClick(tag);
+                            }
+                        }
+                    }
+                });
+                bottomLinearView.addView(btnView);
+
+                //----------------竖向分割线 ----------------
+                if (i != btnText.length - 1) {
+                    params = new LinearLayout.LayoutParams(1, -1);
+                    View splitView = new View(context);
+                    splitView.setLayoutParams(params);
+                    splitView.setBackgroundColor(Color.parseColor("#D5D5D5"));
+                    bottomLinearView.addView(splitView);
+                }
             }
-        });
-        bottomLinearView.addView(cancelView);
-
-        //----------------竖向分割线 ----------------
-        params = new LinearLayout.LayoutParams(1, -1);
-        splitViewV = new View(context);
-        splitViewV.setLayoutParams(params);
-        splitViewV.setBackgroundColor(Color.parseColor("#D5D5D5"));
-        bottomLinearView.addView(splitViewV);
-
-        //----------------确定按钮 ----------------
-        params = new LinearLayout.LayoutParams(-2, -1);
-        params.weight = 1;
-        submitView = new TextView(context);
-        submitView.setLayoutParams(params);
-        submitView.setGravity(Gravity.CENTER);
-        submitView.setText(submitButtonText);
-        submitView.setTextSize(textSize);
-        submitView.setTypeface(Typeface.DEFAULT_BOLD);
-        submitView.setTextColor(Color.parseColor("#00b839"));
-        submitView.setClickable(true);
-        submitView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSelectListener.onDetermine();
-            }
-        });
-        bottomLinearView.addView(submitView);
-
-
-        return relativeLayout;
+        }
     }
 
-    @SuppressLint("ResourceType")
-    public View getView(String hintMsg, String submitButtonText) {
-
-        int margin = dip2px(context, 16);
-        //----------------根布局----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        RelativeLayout relativeLayout = new RelativeLayout(context);
-        relativeLayout.setLayoutParams(layoutParams);
-
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setCornerRadius(23);
-        gradientDrawable.setColor(Color.WHITE);
-
-        relativeLayout.setBackground(gradientDrawable);
-
-
-        //----------------提示文本----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, dip2px(context,height));
-        layoutParams.addRule(RelativeLayout.ABOVE | RelativeLayout.CENTER_HORIZONTAL);
-        layoutParams.setMargins(margin, margin, margin, margin);
-        TextView tipTextView = new TextView(context);
-        tipTextView.setId(0x888888);
-        tipTextView.setLayoutParams(layoutParams);
-        tipTextView.setTextColor(Color.BLACK);
-        tipTextView.setMaxEms(13);
-        tipTextView.setMaxLines(3);
-        tipTextView.setTextSize(textSize);
-        tipTextView.setGravity(Gravity.CENTER);
-        tipTextView.setLineSpacing(10F, 1);
-        tipTextView.setText(hintMsg);
-        relativeLayout.addView(tipTextView);
-
-
-        //----------------底部根视图----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        layoutParams.addRule(RelativeLayout.BELOW,tipTextView.getId());
-        RelativeLayout bottomView = new RelativeLayout(context);
-        bottomView.setLayoutParams(layoutParams);
-        relativeLayout.addView(bottomView);
-
-        //----------------横向分割线 ----------------
-        layoutParams = new RelativeLayout.LayoutParams(-1, 1);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        View splitViewH = new View(context);
-        splitViewH.setId(0x19900000);
-        splitViewH.setLayoutParams(layoutParams);
-        splitViewH.setBackgroundColor(Color.parseColor("#D5D5D5"));
-        splitViewH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSelectListener.onCancel();
+    /**
+     * 设置btn样式
+     *
+     * @param index     位于ViewGroup的下标
+     * @param textColor the text color
+     * @param typeface  字体风格 例如：加粗
+     */
+    public void setTextStyleByIndex(int index, int textColor, Typeface typeface) {
+        if (bottomLinearView != null) {
+            TextView btnView;
+            if (index == 0) {
+                btnView = (TextView) bottomLinearView.getChildAt(index);
+            } else {
+                btnView = (TextView) bottomLinearView.getChildAt(index / 2 == 0 ? index + 1 : index);
             }
-        });
-        bottomView.addView(splitViewH);
-
-        layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        layoutParams.addRule(RelativeLayout.BELOW, splitViewH.getId());
-        LinearLayout bottomLinearView = new LinearLayout(context);
-        bottomLinearView.setLayoutParams(layoutParams);
-        bottomLinearView.setOrientation(LinearLayout.HORIZONTAL);
-        bottomView.addView(bottomLinearView);
-
-
-        //----------------确定按钮 ----------------
-        params = new LinearLayout.LayoutParams(-2, -1);
-        params.weight = 1;
-        submitView = new TextView(context);
-        submitView.setLayoutParams(params);
-        submitView.setGravity(Gravity.CENTER);
-        submitView.setText(submitButtonText);
-        submitView.setTextSize(textSize);
-        submitView.setTypeface(Typeface.DEFAULT_BOLD);
-        submitView.setTextColor(Color.parseColor("#00b839"));
-        submitView.setClickable(true);
-        submitView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSelectListener.onDetermine();
-            }
-        });
-        bottomLinearView.addView(submitView);
-
-
-        return relativeLayout;
+            btnView.setTextColor(textColor);
+            btnView.setTypeface(typeface);
+        }
     }
 
+    public AnimationSet getShowAnimation() {
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.setDuration(200);
+        AlphaAnimation alphaAnimation = new AlphaAnimation((float) 0.0, (float) 1.0);
+        animationSet.addAnimation(alphaAnimation);
+        return animationSet;
+    }
 
     private static int dip2px(Context context, float dipValue) {
         float scale = context.getResources().getDisplayMetrics().density;
@@ -241,19 +172,8 @@ public class GuideView {
     }
 
 
-    /**
-     * The interface On select listener.
-     */
     public interface onSelectListener {
-        /**
-         * On cancel. 取消
-         */
-        void onCancel();
-
-        /**
-         * On determine. 确定
-         */
-        void onDetermine();
+        void onPopClick(int tag);
     }
 
 }
