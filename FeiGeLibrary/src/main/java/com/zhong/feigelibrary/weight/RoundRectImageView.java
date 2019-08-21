@@ -47,8 +47,7 @@ public class RoundRectImageView extends ImageView {
         Drawable drawable = getDrawable();
         if (null != drawable) {
             Bitmap bitmap = getBitmapFromDrawable(drawable);
-//            Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-            Bitmap b = getRoundBitmapByShader(bitmap, getWidth(), getHeight(), 50, 0);
+            Bitmap b = getRoundBitmapByShader(bitmap, getWidth(), getHeight(), 20, 0);
             final Rect rectSrc = new Rect(0, 0, b.getWidth(), b.getHeight());
             final Rect rectDest = new Rect(0, 0, getWidth(), getHeight());
             paint.reset();
@@ -72,11 +71,15 @@ public class RoundRectImageView extends ImageView {
                 .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
                 : Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
-        //drawable.setBounds(-4, -4, width + 4, height + 4);
         drawable.draw(canvas);
         return bitmap;
     }
 
+    /**
+     * 静态方法直接返回圆角矩形图片
+     *
+     * @author caizhiming
+     */
     public static Bitmap getRoundBitmapByShader(Bitmap bitmap, int outWidth, int outHeight, int radius, int boarder) {
         if (bitmap == null) {
             return null;
