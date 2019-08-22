@@ -31,6 +31,7 @@ public class GuideView extends RelativeLayout {
      *
      * @param context          the context
      * @param onSelectListener the on select listener
+     * @param height           这里的height指的是PopupWindow的高  ，注意一定要传所指定的PopupWindow的高  否则View定位会出现无法预料的结果
      */
     public GuideView(Context context, GuideView.onSelectListener onSelectListener, int height) {
         super(context);
