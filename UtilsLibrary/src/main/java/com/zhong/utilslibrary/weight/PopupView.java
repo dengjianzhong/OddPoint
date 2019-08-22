@@ -17,7 +17,7 @@ import android.widget.TextView;
  * 引导视图  注意：PopupWindow的标准宽高 width=dip2px(context,260) ,height=dip2px(context,160)
  */
 //TODO tipTextView的计算公式：((height/3)*2+5)-32
-public class GuideView extends RelativeLayout {
+public class PopupView extends RelativeLayout {
     private LayoutParams layoutParams;
     private LinearLayout.LayoutParams params;
     private float textSize = 16F;
@@ -33,7 +33,7 @@ public class GuideView extends RelativeLayout {
      * @param onSelectListener the on select listener
      * @param height           这里的height指的是PopupWindow的高  ，注意一定要传所指定的PopupWindow的高  否则View定位会出现无法预料的结果
      */
-    public GuideView(Context context, GuideView.onSelectListener onSelectListener, int height) {
+    public PopupView(Context context, PopupView.onSelectListener onSelectListener, int height) {
         super(context);
         this.context = context;
         this.onSelectListener = onSelectListener;
