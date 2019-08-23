@@ -22,7 +22,7 @@ public class PopupView extends RelativeLayout {
     private LinearLayout.LayoutParams params;
     private float textSize = 16F;
     private Context context;
-    private onSelectListener onSelectListener;
+    private OnSelectListener onSelectListener;
     private int height;
     private LinearLayout bottomLinearView;
 
@@ -31,13 +31,13 @@ public class PopupView extends RelativeLayout {
      *
      * @param context          the context
      * @param onSelectListener the on select listener
-     * @param height           这里的height指的是PopupWindow的高  ，注意一定要传所指定的PopupWindow的高  否则View定位会出现无法预料的结果
+     * @param height           这里的height指的是PopupWindow的高  ，注意一定要传所指定的PopupWindow的高  否则View定位会出现无法预料的结果 Todo
      */
-    public PopupView(Context context, PopupView.onSelectListener onSelectListener, int height) {
+    public PopupView(Context context, OnSelectListener onSelectListener, int height) {
         super(context);
         this.context = context;
         this.onSelectListener = onSelectListener;
-        this.height = ((height / 3) * 2 + 5) - 32;
+        this.height = height;
     }
 
     @SuppressLint("ResourceType")
@@ -45,7 +45,7 @@ public class PopupView extends RelativeLayout {
 
         int margin = dip2px(context, 16);
         //----------------根布局----------------
-        layoutParams = new LayoutParams(-1, -1);
+        layoutParams = new LayoutParams(-2, height);
         this.setLayoutParams(layoutParams);
         this.setAnimation(getShowAnimation());
 
@@ -57,8 +57,9 @@ public class PopupView extends RelativeLayout {
 
 
         //----------------提示文本----------------
-        layoutParams = new LayoutParams(-1, dip2px(context, height));
-        layoutParams.addRule(RelativeLayout.ABOVE | RelativeLayout.CENTER_HORIZONTAL);
+        int tipTextHeight = ((height / 3) * 2) - dip2px(context, 32);
+        layoutParams = new LayoutParams(-1, tipTextHeight);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP | RelativeLayout.CENTER_HORIZONTAL);
         layoutParams.setMargins(margin, margin, margin, margin);
         TextView tipTextView = new TextView(context);
         tipTextView.setId(0x888888);
@@ -101,7 +102,7 @@ public class PopupView extends RelativeLayout {
             for (int i = 0; i < btnText.length; i++) {
                 params = new LinearLayout.LayoutParams(-2, -1);
                 params.weight = 1;
-                TextView  btnView = new TextView(context);
+                TextView btnView = new TextView(context);
                 btnView.setTag(i);
                 btnView.setLayoutParams(params);
                 btnView.setGravity(Gravity.CENTER);
@@ -173,7 +174,7 @@ public class PopupView extends RelativeLayout {
     }
 
 
-    public interface onSelectListener {
+    public interface OnSelectListener {
         void onPopClick(int tag);
     }
 
