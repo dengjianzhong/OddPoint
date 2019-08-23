@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.factory;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

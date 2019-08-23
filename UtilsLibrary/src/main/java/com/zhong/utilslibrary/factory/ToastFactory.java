@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.factory;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.factory;
 
 import android.app.Application;
 import android.content.Context;
@@ -9,7 +9,6 @@ public class GlobleFactory extends Application {
     public void onCreate() {
         super.onCreate();
         context =this;
-
     }
     public static Context getGlobleContext(){
         return context;
