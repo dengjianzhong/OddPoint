@@ -3,16 +3,16 @@ package com.zhong.oddpoint.main.activity;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
-import com.zhong.d_oddpoint.utils.PopupFactory;
+import com.zhong.utilslibrary.factory.PopupFactory;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.adapter.StopAdapter;
 import com.zhong.oddpoint.main.bean.StopInfo;
@@ -20,7 +20,6 @@ import com.zhong.oddpoint.main.bean.car_data;
 import com.zhong.oddpoint.main.port.StopDataListener;
 import com.zhong.oddpoint.main.request.CallStopData;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class StopActivity extends AppCompatActivity implements StopDataListener, View.OnClickListener {
@@ -93,7 +92,7 @@ public class StopActivity extends AppCompatActivity implements StopDataListener,
                         @Override
                         public void run() {
                             View view = getLayoutInflater().inflate(R.layout.data_load, null);
-                            loadPopup = PopupFactory.LoadPopup(view, getWindow());
+                            loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view, Gravity.CENTER);
                             new CallStopData(StopActivity.this).CallData(dataset,start_time);
                         }
                     });

@@ -9,8 +9,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -24,7 +26,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.zhong.d_oddpoint.utils.PopupFactory;
+import com.zhong.utilslibrary.factory.PopupFactory;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.bean.login_result;
 import com.zhong.oddpoint.main.bean.verificationCode;
@@ -54,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
     private RequestOptions requestOptions = new RequestOptions()
             .skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE);
+
 
     private Handler handler = new Handler() {
         @Override
@@ -195,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                 View view01 = getLayoutInflater().inflate(R.layout.data_load, null);
                 TextView status_text = view01.findViewById(R.id.status_tex);
                 status_text.setText("登录中...");
-                loadPopup = PopupFactory.LoadPopup(view01, getWindow());
+                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view01, Gravity.CENTER);
 
                 getLoginParameter();
                 graphicVerification();
@@ -420,4 +423,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
             }
         }, 0, 1000);
     }
+
 }

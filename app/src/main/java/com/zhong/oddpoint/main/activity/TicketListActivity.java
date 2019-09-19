@@ -3,13 +3,13 @@ package com.zhong.oddpoint.main.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,21 +21,18 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.zhong.d_oddpoint.database.table.StationCode;
-import com.zhong.d_oddpoint.utils.PopupFactory;
+import com.zhong.utilslibrary.database.table.StationCode;
+import com.zhong.utilslibrary.factory.PopupFactory;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.adapter.PurchaseList;
 import com.zhong.oddpoint.main.bean.car_data;
 import com.zhong.oddpoint.main.port.Car_Info_Parse;
-import com.zhong.oddpoint.main.request.CallInfo;
 import com.zhong.oddpoint.main.request.CallFare;
-import com.zhong.oddpoint.main.request.CallStopData;
+import com.zhong.oddpoint.main.request.CallInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -159,7 +156,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void run() {
                             View view = getLayoutInflater().inflate(R.layout.data_load, null);
-                            loadPopup = PopupFactory.LoadPopup(view, getWindow());
+                            loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view, Gravity.CENTER);
                             callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                         }
                     });
@@ -281,7 +278,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.more_view://筛选车次
                 View view = getLayoutInflater().inflate(R.layout.popup_layout, null);
-                popupWindow = PopupFactory.ShowPopup(view, heightPixels / 4, getWindow());
+                popupWindow = PopupFactory.showPopupWindow(this,view,Gravity.BOTTOM);
                 view.findViewById(R.id.close_popup).setOnClickListener(this);
                 view.findViewById(R.id.AllCarLayout).setOnClickListener(this);
                 view.findViewById(R.id.GDCCarLayout).setOnClickListener(this);
@@ -317,7 +314,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.GONE);
                 popupWindow.dismiss();
                 View view01 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.LoadPopup(view01, getWindow());
+                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view01,Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                 break;
             case R.id.GDCCarLayout://只查看GDC车型
@@ -328,7 +325,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.GONE);
                 this.popupWindow.dismiss();
                 View view02 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.LoadPopup(view02, getWindow());
+                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view02,Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 201);
                 break;
             case R.id.KCarLayout://只查看火车
@@ -339,8 +336,9 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.VISIBLE);
                 this.popupWindow.dismiss();
                 View view03 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.LoadPopup(view03, getWindow());
+                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view03,Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 202);
+
                 break;
         }
     }

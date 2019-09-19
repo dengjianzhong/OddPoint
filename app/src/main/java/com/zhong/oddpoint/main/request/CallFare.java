@@ -15,7 +15,6 @@ public class CallFare {
     private Car_Info_Parse carInfoParse;
     private car_data carData;
     private String start_date;
-
     public static void obtainPrice(final Car_Info_Parse carInfoParse, final car_data carData, String start_date) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()

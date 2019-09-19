@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 
 import com.google.gson.Gson;
-import com.zhong.d_oddpoint.database.table.StationCode;
+import com.zhong.utilslibrary.database.table.StationCode;
 import com.zhong.oddpoint.main.bean.car_data;
 import com.zhong.oddpoint.main.bean.car_info;
 import com.zhong.oddpoint.main.port.Car_Info_Parse;

@@ -25,4 +25,9 @@ public class verify_result {
     public void setResult_code(String result_code) {
         this.result_code = result_code;
     }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+    }
 }
