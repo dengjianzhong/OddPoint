@@ -95,15 +95,20 @@ public class LottieAnimation {
     /**
      * 存储在assets下的JSON动画文件名
      *
-     * @param context  the context
      * @param fileName 文件名
      * @param showText 提示文本
      * @return the view
      */
-    public View loaddingAnimationFile(Context context, String fileName, String showText) {
-        LottieComposition lottieComposition = LottieComposition.Factory.fromFileSync(context, fileName);
-        animationView.setComposition(lottieComposition);
-        animationView.playAnimation();
+    public View loaddingAnimationFile(String fileName, String showText) {
+
+        LottieComposition lottieComposition = null;
+        try {
+            lottieComposition = LottieComposition.Factory.fromFileSync(context, fileName);
+            animationView.setComposition(lottieComposition);
+            animationView.playAnimation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String tipText = TextUtils.isEmpty(showText) ? "加载中..." : showText;
         tipView.setText(tipText);
@@ -114,12 +119,11 @@ public class LottieAnimation {
     /**
      * 加载存储在内存中的JSON动画文件
      *
-     * @param context  the context
      * @param filePath 文件路径
      * @param showText 提示文本
      * @return the view
      */
-    public View loaddingAnimationStream(Context context, String filePath, String showText) {
+    public View loaddingAnimationStream(String filePath, String showText) {
         try {
             inputStream = new BufferedInputStream(new FileInputStream(filePath));
         } catch (FileNotFoundException e) {
@@ -143,12 +147,11 @@ public class LottieAnimation {
     /**
      * 远程加载JSON动画
      *
-     * @param context  the context
      * @param URL      SON动画文件的URL
      * @param showText 提示文本
      * @return the view
      */
-    public View loaddingAnimationURL(Context context, String URL, String showText) {
+    public View loaddingAnimationURL(String URL, String showText) {
         loaddingURL(context, animationView, URL);
         String tipText = TextUtils.isEmpty(showText) ? "加载中..." : showText;
         tipView.setText(tipText);

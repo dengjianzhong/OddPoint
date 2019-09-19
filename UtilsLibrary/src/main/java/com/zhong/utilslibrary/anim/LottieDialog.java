@@ -32,7 +32,7 @@ public class LottieDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View contentView  = LottieAnimation.getInstance(getContext()).loaddingAnimationFile(getContext(), "permission.json",tipText);
+        View contentView  = LottieAnimation.getInstance(getContext()).loaddingAnimationFile("permission.json",tipText);
         getDialog().setCanceledOnTouchOutside(false);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return contentView ;
@@ -42,6 +42,6 @@ public class LottieDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDialog().getWindow().setLayout((int) (dm.widthPixels * 0.5), (int) (dm.widthPixels * 0.5));
+        getDialog().getWindow().setLayout((int) (dm.widthPixels * 0.5), (int) (dm.heightPixels * 0.23));
     }
 }

@@ -25,6 +25,7 @@ public class PopupView extends RelativeLayout {
     private OnSelectListener onSelectListener;
     private int height;
     private LinearLayout bottomLinearView;
+    private AnimationSet animationSet;
 
     /**
      * Instantiates a new Guide view.
@@ -41,7 +42,7 @@ public class PopupView extends RelativeLayout {
     }
 
     @SuppressLint("ResourceType")
-    public void iniView(String hintMsg, String... btnText) {
+    public void initView(String hintMsg, String... btnText) {
 
         int margin = dip2px(context, 16);
         //----------------根布局----------------
@@ -161,10 +162,12 @@ public class PopupView extends RelativeLayout {
     }
 
     public AnimationSet getShowAnimation() {
-        AnimationSet animationSet = new AnimationSet(true);
-        animationSet.setDuration(200);
-        AlphaAnimation alphaAnimation = new AlphaAnimation((float) 0.0, (float) 1.0);
-        animationSet.addAnimation(alphaAnimation);
+        if (animationSet == null) {
+            animationSet = new AnimationSet(true);
+            animationSet.setDuration(200);
+            AlphaAnimation alphaAnimation = new AlphaAnimation(0.0F, 1.0F);
+            animationSet.addAnimation(alphaAnimation);
+        }
         return animationSet;
     }
 
@@ -176,6 +179,11 @@ public class PopupView extends RelativeLayout {
 
     public interface OnSelectListener {
         void onPopClick(int tag);
+    }
+
+    public void recycle() {
+        onSelectListener = null;
+        animationSet=null;
     }
 
 }

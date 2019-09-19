@@ -106,6 +106,7 @@ public class RoundRectImageView extends ImageView {
         //把传入的bitmap绘制到圆角矩形区域内
         canvas.drawRoundRect(rect, radius, radius, paint);
 
+
         if (boarder > 0) {
             //绘制boarder
             Paint boarderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -8,9 +8,9 @@ public class ToastUtil {
     private static ToastFactory toastFactory;
 
     public static void showToast(Context context, String text) {
-        toastFactory = new ToastFactory(context);
-        if (toastFactory != null) {
-            toastFactory.showView(text);
+        if (toastFactory == null) {
+            toastFactory = new ToastFactory(context);
         }
+        toastFactory.showView(text);
     }
 }

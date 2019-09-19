@@ -1,4 +1,4 @@
-package com.zhong.feigelibrary;
+package com.zhong.utilslibrary;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

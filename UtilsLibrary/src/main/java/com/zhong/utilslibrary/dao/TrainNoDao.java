@@ -3,7 +3,7 @@ package com.zhong.utilslibrary.dao;
 import com.j256.ormlite.dao.Dao;
 import com.zhong.utilslibrary.database.DatabaseFactory;
 import com.zhong.utilslibrary.database.table.StationTrainNo;
-import com.zhong.utilslibrary.utils.GlobleFactory;
+import com.zhong.utilslibrary.factory.GlobleFactory;
 
 import java.sql.SQLException;
 import java.util.List;
