@@ -10,7 +10,6 @@ import android.view.WindowManager;
  */
 public class Utils {
     private static DisplayMetrics displayMetrics;
-
     /**
      * 得到屏幕的宽度
      *
@@ -49,6 +48,28 @@ public class Utils {
      */
     public static Activity getActivity(Context context) {
         return (Activity) context;
+    }
+
+    /**
+     * 设置全屏模式
+     *
+     * @param context the context
+     */
+    public Utils setFullScreen(Context context) {
+        if (context != null)
+            ((Activity) context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //全屏
+        return this;
+    }
+
+    /**
+     * 取消全屏模式
+     *
+     * @param context the context
+     */
+    public Utils setCancelScreen(Context context) {
+        if (context != null)
+            ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        return this;
     }
 
     /**
