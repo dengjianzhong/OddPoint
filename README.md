@@ -1,7 +1,2 @@
-## 体验Demo
-我们提供了体验demo，请使用微信扫码下载安装体验
-
-## 体验Demo
-我们提供了体验demo，请使用微信扫码下载安装体验
-
-![野火IM](http://static.wildfirechat.cn/download_qrcode.png)
+# 12306火车票查询
+由于部分API已经过期，请开发者进入12306官网进行查询
