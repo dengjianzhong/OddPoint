@@ -2,25 +2,16 @@ package com.zhong.utilslibrary.database.table;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import com.zhong.utilslibrary.database.base.BaseBean;
 
 import java.io.Serializable;
 
 @DatabaseTable(tableName = "StationCode")
-public class StationCode implements Serializable {
-    @DatabaseField(generatedId = true)
-    private int id;
+public class StationCode extends BaseBean implements Serializable {
     @DatabaseField(columnName = "station_name")
     private String station_name;
     @DatabaseField(columnName = "station_code")
     private String station_code;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getStation_name() {
         return station_name;

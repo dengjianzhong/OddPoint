@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zhong.utilslibrary.database.table.StationCode;
-import com.zhong.utilslibrary.dao.DataDao;
+import com.zhong.utilslibrary.database.DaoHelper;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.bean.car_data;
 
@@ -18,12 +18,12 @@ import java.util.List;
 public class PurchaseList extends BaseAdapter {
     private Context context;
     private List<car_data> list;
-    private final DataDao dataDao;
+    private final DaoHelper daoHelper;
     private List<StationCode> stationCodes1;
 
     public PurchaseList(Context context) {
         this.context = context;
-        dataDao = new DataDao();
+        daoHelper =new DaoHelper(context,StationCode.class);
     }
 
     public void setData(List<car_data> list) {
@@ -65,8 +65,8 @@ public class PurchaseList extends BaseAdapter {
         TextView min_money = view.findViewById(R.id.min_money);
         TextView qi_text = view.findViewById(R.id.qi);
 
-        List<StationCode> stationCodes1 = dataDao.selectCodeData(list.get(position).getStart_site_code());
-        List<StationCode> stationCodes2 = dataDao.selectCodeData(list.get(position).getEnd_site_code());
+        List<StationCode> stationCodes1 = daoHelper.selectCodeData(list.get(position).getStart_site_code());
+        List<StationCode> stationCodes2 = daoHelper.selectCodeData(list.get(position).getEnd_site_code());
         if (stationCodes1!=null&&stationCodes2!=null){
             start_positon.setText(stationCodes1.get(0).getStation_name());
             end_positon.setText(stationCodes2.get(0).getStation_name());

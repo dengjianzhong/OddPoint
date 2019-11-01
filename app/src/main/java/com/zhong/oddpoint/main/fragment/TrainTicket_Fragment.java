@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.zaaach.citypicker.CityPickerActivity;
-import com.zhong.utilslibrary.dao.DataDao;
+import com.zhong.utilslibrary.database.DaoHelper;
 import com.zhong.utilslibrary.database.table.StationCode;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.activity.DateActivity;
@@ -51,7 +51,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
     private TextView local2;
     private String start_city_code = "CQW";
     private String end_city_code = "WYW";
-    private DataDao dataDao;
+    private DaoHelper daoHelper;
     private StationCode start_stationCode = null;
     private StationCode end_stationCode = null;
     private ViewPager ad_viewPager;
@@ -141,8 +141,8 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
     }
 
     public void initDatabase() {
-        dataDao = new DataDao();
-        List<StationCode> stationCodes = dataDao.selectAll();
+        daoHelper = new DaoHelper(getContext(), StationCode.class);
+        List<StationCode> stationCodes = daoHelper.selectAll();
         if (stationCodes.size() <= 0) {
             new CallStationCode(this).callHtpp();
         }
@@ -152,7 +152,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.select_button:
-                if (!local1.getText().equals("起始地")&&!local2.getText().equals("目的地")) {
+                if (!local1.getText().equals("起始地") && !local2.getText().equals("目的地")) {
                     Intent intent = new Intent(getActivity(), TicketListActivity.class);
                     intent.putExtra("start_date", dateView.getText());
                     intent.putExtra("week", whichDayView.getText());
@@ -161,7 +161,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
                         intent.putExtra("end_name", end_stationCode);
                     }
                     startActivity(intent);
-                }else {
+                } else {
                     Toast.makeText(getContext(), "请选择起始地或目的地", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -194,7 +194,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
                 if (resultCode == -1) {
                     String city1 = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                     local1.setText(city1);
-                    List<StationCode> start_stationCodeList = dataDao.selectData(city1);
+                    List<StationCode> start_stationCodeList = daoHelper.selectData(city1);
                     if (start_stationCodeList.size() > 0) {
                         start_stationCode = start_stationCodeList.get(0);
                     } else {
@@ -206,7 +206,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
                 if (resultCode == -1) {
                     String city2 = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                     local2.setText(city2);
-                    List<StationCode> end_stationList = dataDao.selectData(city2);
+                    List<StationCode> end_stationList = daoHelper.selectData(city2);
                     if (end_stationList.size() > 0) {
                         end_stationCode = end_stationList.get(0);
                     } else {
@@ -261,7 +261,7 @@ public class TrainTicket_Fragment extends Fragment implements View.OnClickListen
         StationCode stationCode = new StationCode();
         stationCode.setStation_name(station_name);
         stationCode.setStation_code(station_code);
-        dataDao.insert(stationCode);
+        daoHelper.insert(stationCode);
     }
 
     @Override

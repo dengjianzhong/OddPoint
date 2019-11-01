@@ -13,7 +13,6 @@ public class StationTrainNo implements Serializable {
     private String station_train_code;
     @DatabaseField(columnName = "train_no")
     private String train_no;
-
     public int getId() {
         return id;
     }

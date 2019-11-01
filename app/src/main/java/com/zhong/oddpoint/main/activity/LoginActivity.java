@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -198,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                 View view01 = getLayoutInflater().inflate(R.layout.data_load, null);
                 TextView status_text = view01.findViewById(R.id.status_tex);
                 status_text.setText("登录中...");
-                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view01, Gravity.CENTER);
+                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(), view01, Gravity.CENTER);
 
                 getLoginParameter();
                 graphicVerification();
