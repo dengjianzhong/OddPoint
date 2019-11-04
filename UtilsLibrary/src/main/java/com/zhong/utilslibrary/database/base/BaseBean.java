@@ -10,6 +10,7 @@ public abstract class BaseBean {
         return id;
     }
 
+
     public void setId(int id) {
         this.id = id;
     }
