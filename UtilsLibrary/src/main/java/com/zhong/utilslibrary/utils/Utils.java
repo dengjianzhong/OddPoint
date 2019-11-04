@@ -3,6 +3,7 @@ package com.zhong.utilslibrary.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.view.Window;
 import android.view.WindowManager;
 
 /**
@@ -10,6 +11,7 @@ import android.view.WindowManager;
  */
 public class Utils {
     private static DisplayMetrics displayMetrics;
+
     /**
      * 得到屏幕的宽度
      *
@@ -71,6 +73,19 @@ public class Utils {
             ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return this;
     }
+
+    /**
+     * 设置当前窗口亮度
+     *
+     * @param brightness
+     */
+    private void setWindowBrightness(Context context, float brightness) {
+        Window window = ((Activity) context).getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness;
+        window.setAttributes(lp);
+    }
+
 
     /**
      * dip转px
