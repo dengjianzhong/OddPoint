@@ -25,7 +25,7 @@ public class ThreadPoolUtil {
         return executorService;
     }
 
-    public static ExecutorService getThreadPool() {
+    public static ExecutorService getWorkThread() {
         if (threadPoolUtil == null && executorService == null) {
             threadPoolUtil = new ThreadPoolUtil();
             executorService = threadPoolUtil.initThreadPool();
