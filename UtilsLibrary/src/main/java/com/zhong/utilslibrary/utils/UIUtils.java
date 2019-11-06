@@ -7,9 +7,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * The type Utils.
+ * The type UIUtils.
  */
-public class Utils {
+public class UIUtils {
     private static DisplayMetrics displayMetrics;
 
     /**
@@ -57,7 +57,7 @@ public class Utils {
      *
      * @param context the context
      */
-    public Utils setFullScreen(Context context) {
+    public UIUtils setFullScreen(Context context) {
         if (context != null)
             ((Activity) context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //全屏
         return this;
@@ -68,7 +68,7 @@ public class Utils {
      *
      * @param context the context
      */
-    public Utils setCancelScreen(Context context) {
+    public UIUtils setCancelScreen(Context context) {
         if (context != null)
             ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return this;

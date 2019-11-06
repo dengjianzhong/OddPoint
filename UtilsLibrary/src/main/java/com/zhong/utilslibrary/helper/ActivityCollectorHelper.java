@@ -1,7 +1,6 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.helper;
 
 import android.app.Activity;
-import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,23 +8,23 @@ import java.util.List;
 /**
  * Activity收集工具
  */
-public class ActivityCollectorUtil {
+public class ActivityCollectorHelper {
     public List<Activity> activityList = new ArrayList<>();
-    private static ActivityCollectorUtil activityCollectorUtil;
+    private static ActivityCollectorHelper activityCollectorHelper;
 
     /**
      * Gets instance.
      *
-     * @return the ActivityCollectorUtil instance
+     * @return the ActivityCollectorHelper instance
      */
-    public static ActivityCollectorUtil getInstance() {
-        if (activityCollectorUtil == null) {
-            synchronized (ActivityCollectorUtil.class) {
-                activityCollectorUtil = new ActivityCollectorUtil();
+    public static ActivityCollectorHelper getInstance() {
+        if (activityCollectorHelper == null) {
+            synchronized (ActivityCollectorHelper.class) {
+                activityCollectorHelper = new ActivityCollectorHelper();
             }
         }
 
-        return activityCollectorUtil;
+        return activityCollectorHelper;
     }
 
     /**

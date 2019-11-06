@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.helper;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -14,10 +14,10 @@ import java.util.concurrent.TimeUnit;
  * （3）方便线程并发数的管控。因为线程若是无限制的创建，可能会导致内存占用过多而产生OOM，并且会造成cpu过度切换（cpu切换线程是有时间成本的（需要保持当前执行线程的现场，并恢复要执行线程的现场））。
  * （4）提供更强大的功能，延时定时线程池。
  */
-public class ThreadPoolUtil {
+public class ThreadPoolHelper {
     private int corePoolNumber = Runtime.getRuntime().availableProcessors();
     private static ExecutorService executorService;
-    private static ThreadPoolUtil threadPoolUtil;
+    private static ThreadPoolHelper threadPoolHelper;
 
     private ThreadPoolExecutor initThreadPool() {
         BlockingQueue blockingQueue = new LinkedBlockingDeque<Runnable>(512);
@@ -26,9 +26,9 @@ public class ThreadPoolUtil {
     }
 
     public static ExecutorService getWorkThread() {
-        if (threadPoolUtil == null && executorService == null) {
-            threadPoolUtil = new ThreadPoolUtil();
-            executorService = threadPoolUtil.initThreadPool();
+        if (threadPoolHelper == null && executorService == null) {
+            threadPoolHelper = new ThreadPoolHelper();
+            executorService = threadPoolHelper.initThreadPool();
         }
         return executorService;
     }
