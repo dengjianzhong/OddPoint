@@ -1,13 +1,13 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.tool;
 
 import android.content.Context;
 
 import com.zhong.utilslibrary.factory.ToastFactory;
 
-public class ToastUtil {
+public class ToastTool {
     private static ToastFactory toastFactory;
 
-    private ToastUtil() {
+    private ToastTool() {
         throw new UnsupportedOperationException("禁止实例化");
     }
 

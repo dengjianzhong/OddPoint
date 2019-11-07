@@ -71,7 +71,7 @@ public class PopupFactory {
         AnimationSet animationSet = new AnimationSet(true);
         animationSet.setDuration(200);
         //平移
-        TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, 100, 0);
+        TranslateAnimation translateAnimation = new TranslateAnimation(0F, 0, 100, 0);
         animationSet.addAnimation(translateAnimation);
         //透明度
         AlphaAnimation alphaAnimation = new AlphaAnimation((float) 0.0, (float) 0.8);

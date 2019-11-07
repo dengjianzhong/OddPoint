@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.tool;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * The type UIUtils.
+ * The type UITool.
  */
-public class UIUtils {
+public class UITool {
     private static DisplayMetrics displayMetrics;
 
     /**

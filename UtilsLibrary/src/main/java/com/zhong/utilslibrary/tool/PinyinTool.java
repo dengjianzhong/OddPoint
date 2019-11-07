@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.utils;
+package com.zhong.utilslibrary.tool;
 
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -9,11 +9,11 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 /**
  * 汉字转换位汉语拼音，英文字符不变
  */
-public class PinyinUtil {
+public class PinyinTool {
 
     public static StringBuffer sb = new StringBuffer();
 
-    private PinyinUtil() {
+    private PinyinTool() {
         throw new UnsupportedOperationException("禁止实例化");
     }
 
