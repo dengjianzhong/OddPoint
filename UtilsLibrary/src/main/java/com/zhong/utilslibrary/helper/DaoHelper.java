@@ -1,9 +1,9 @@
-package com.zhong.utilslibrary.database;
+package com.zhong.utilslibrary.helper;
 
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.zhong.utilslibrary.database.base.BaseBean;
+import com.zhong.utilslibrary.database.BaseBean;
 
 import java.sql.SQLException;
 import java.util.List;

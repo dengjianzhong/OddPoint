@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary.database.table;
+package com.zhong.utilslibrary.database;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
