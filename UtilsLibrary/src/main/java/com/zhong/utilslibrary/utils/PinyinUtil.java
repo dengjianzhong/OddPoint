@@ -13,6 +13,10 @@ public class PinyinUtil {
 
     public static StringBuffer sb = new StringBuffer();
 
+    private PinyinUtil() {
+        throw new UnsupportedOperationException("禁止实例化");
+    }
+
     /**
      * 获取汉字字符串的首字母，英文字符不变
      * 例如：阿飞→af

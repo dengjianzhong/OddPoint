@@ -19,6 +19,9 @@ public class ThreadPoolHelper {
     private static ExecutorService executorService;
     private static ThreadPoolHelper threadPoolHelper;
 
+    private ThreadPoolHelper() {
+    }
+
     private ThreadPoolExecutor initThreadPool() {
         BlockingQueue blockingQueue = new LinkedBlockingDeque<Runnable>(512);
         ThreadPoolExecutor executorService = new ThreadPoolExecutor(corePoolNumber, corePoolNumber * 2, 1L, TimeUnit.SECONDS, blockingQueue);
@@ -26,9 +29,11 @@ public class ThreadPoolHelper {
     }
 
     public static ExecutorService getWorkThread() {
-        if (threadPoolHelper == null && executorService == null) {
-            threadPoolHelper = new ThreadPoolHelper();
-            executorService = threadPoolHelper.initThreadPool();
+        synchronized (ThreadPoolHelper.class) {
+            if (threadPoolHelper == null && executorService == null) {
+                threadPoolHelper = new ThreadPoolHelper();
+                executorService = threadPoolHelper.initThreadPool();
+            }
         }
         return executorService;
     }

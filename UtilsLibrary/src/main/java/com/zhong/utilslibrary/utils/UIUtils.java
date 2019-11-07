@@ -57,10 +57,9 @@ public class UIUtils {
      *
      * @param context the context
      */
-    public UIUtils setFullScreen(Context context) {
+    public static void setFullScreen(Context context) {
         if (context != null)
             ((Activity) context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //全屏
-        return this;
     }
 
     /**
@@ -68,10 +67,9 @@ public class UIUtils {
      *
      * @param context the context
      */
-    public UIUtils setCancelScreen(Context context) {
+    public static void setCancelScreen(Context context) {
         if (context != null)
             ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        return this;
     }
 
     /**
@@ -79,7 +77,7 @@ public class UIUtils {
      *
      * @param brightness
      */
-    private void setWindowBrightness(Context context, float brightness) {
+    private static void setWindowBrightness(Context context, float brightness) {
         Window window = ((Activity) context).getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.screenBrightness = brightness;

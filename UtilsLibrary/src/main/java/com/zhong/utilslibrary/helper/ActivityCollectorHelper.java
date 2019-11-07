@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Activity收集工具
+ * Activity收集助手
  */
 public class ActivityCollectorHelper {
-    public List<Activity> activityList = new ArrayList<>();
     private static ActivityCollectorHelper activityCollectorHelper;
+    private static List<Activity> activityList;
+
+    private ActivityCollectorHelper() {
+    }
 
     /**
      * Gets instance.
@@ -20,7 +23,10 @@ public class ActivityCollectorHelper {
     public static ActivityCollectorHelper getInstance() {
         if (activityCollectorHelper == null) {
             synchronized (ActivityCollectorHelper.class) {
-                activityCollectorHelper = new ActivityCollectorHelper();
+                if (activityCollectorHelper == null) {
+                    activityCollectorHelper = new ActivityCollectorHelper();
+                }
+                activityList = new ArrayList<>();
             }
         }
 
