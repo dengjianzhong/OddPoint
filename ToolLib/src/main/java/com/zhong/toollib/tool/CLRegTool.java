@@ -20,7 +20,7 @@ import static com.zhong.toollib.tool.CLConstTool.REGEX_MOBILE_SIMPLE;
 import static com.zhong.toollib.tool.CLConstTool.REGEX_TEL;
 import static com.zhong.toollib.tool.CLConstTool.REGEX_URL;
 import static com.zhong.toollib.tool.CLConstTool.REGEX_USERNAME;
-import static com.zhong.toollib.tool.ClDataTool.isNullString;
+import static com.zhong.toollib.tool.CLDataTool.isNullString;
 
 /**
  * @author Vondear
