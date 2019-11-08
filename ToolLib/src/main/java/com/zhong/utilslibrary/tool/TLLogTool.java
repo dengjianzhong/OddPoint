@@ -2,10 +2,10 @@ package com.zhong.utilslibrary.tool;
 
 import android.util.Log;
 
-public class LogTool {
+public class TLLogTool {
     private final static String TAG = "========>";
 
-    private LogTool(){
+    private TLLogTool(){
         throw new UnsupportedOperationException("Can not be instantiated.");
     }
 

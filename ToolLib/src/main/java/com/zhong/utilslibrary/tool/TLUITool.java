@@ -7,9 +7,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /**
- * The type UITool.
+ * The type TLUITool.
  */
-public class UITool {
+public class TLUITool {
     private static DisplayMetrics displayMetrics;
 
     /**

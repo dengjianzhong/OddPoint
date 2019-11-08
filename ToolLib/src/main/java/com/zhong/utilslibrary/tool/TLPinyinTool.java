@@ -9,11 +9,11 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 /**
  * 汉字转换位汉语拼音，英文字符不变
  */
-public class PinyinTool {
+public class TLPinyinTool {
 
     public static StringBuffer sb = new StringBuffer();
 
-    private PinyinTool() {
+    private TLPinyinTool() {
         throw new UnsupportedOperationException("禁止实例化");
     }
 
