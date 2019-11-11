@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.zhong.toollib.factory.ToastFactory;
 
-public class CLToastTool {
+public class CoToastTool {
     private static ToastFactory toastFactory;
 
-    private CLToastTool() {
+    private CoToastTool() {
         throw new UnsupportedOperationException("禁止实例化");
     }
 

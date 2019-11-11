@@ -6,7 +6,7 @@ package com.zhong.toollib.tool;
  * @date 2016/1/24
  * 常量工具类
  */
-public class CLConstTool {
+public class CoConstTool {
 
     /******************** 存储相关常量 ********************/
     /**

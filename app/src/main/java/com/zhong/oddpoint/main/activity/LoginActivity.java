@@ -25,7 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.zhong.utilslibrary.factory.PopupFactory;
+import com.zhong.toollib.factory.PopupFactory;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.bean.login_result;
 import com.zhong.oddpoint.main.bean.verificationCode;
@@ -149,6 +149,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     private void initData() {
+
         lf_login.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
         lf_login.getPaint().setAntiAlias(true);//抗锯齿
     }

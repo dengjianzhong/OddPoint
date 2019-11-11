@@ -8,26 +8,26 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.zhong.toollib.tool.CLConstTool.REGEX_CHZ;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_DATE;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_EMAIL;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_IDCARD;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_IDCARD15;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_IDCARD18;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_IP;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_MOBILE_EXACT;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_MOBILE_SIMPLE;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_TEL;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_URL;
-import static com.zhong.toollib.tool.CLConstTool.REGEX_USERNAME;
-import static com.zhong.toollib.tool.CLDataTool.isNullString;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_CHZ;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_DATE;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_EMAIL;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD15;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD18;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_IP;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_MOBILE_EXACT;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_MOBILE_SIMPLE;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_TEL;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_URL;
+import static com.zhong.toollib.tool.CoConstTool.REGEX_USERNAME;
+import static com.zhong.toollib.tool.CoDataTool.isNullString;
 
 /**
  * @author Vondear
  * @date 2017/3/15
  */
 
-public class CLRegTool {
+public class CoRegTool {
     //--------------------------------------------正则表达式-----------------------------------------
     /**
      * 原文链接：http://caibaojian.com/regexp-example.html

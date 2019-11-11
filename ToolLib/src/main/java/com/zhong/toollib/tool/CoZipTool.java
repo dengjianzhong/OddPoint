@@ -26,11 +26,11 @@ import java.util.zip.ZipOutputStream;
  *     desc  : utils about zip
  * </pre>
  */
-public final class CLZipUtils {
+public final class CoZipTool {
 
     private static final int BUFFER_LEN = 8192;
 
-    private CLZipUtils() {
+    private CoZipTool() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
@@ -295,7 +295,7 @@ public final class CLZipUtils {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
                     String entryName = entry.getName().replace("\\", "/");
                     if (entryName.contains("../")) {
-                        Log.e("CLZipUtils", "entryName: " + entryName + " is dangerous!");
+                        Log.e("CoZipTool", "entryName: " + entryName + " is dangerous!");
                         continue;
                     }
                     if (!unzipChildFile(destDir, files, zip, entry, entryName)) return files;
@@ -305,7 +305,7 @@ public final class CLZipUtils {
                     ZipEntry entry = ((ZipEntry) entries.nextElement());
                     String entryName = entry.getName().replace("\\", "/");
                     if (entryName.contains("../")) {
-                        Log.e("CLZipUtils", "entryName: " + entryName + " is dangerous!");
+                        Log.e("CoZipTool", "entryName: " + entryName + " is dangerous!");
                         continue;
                     }
                     if (entryName.contains(keyword)) {
@@ -380,7 +380,7 @@ public final class CLZipUtils {
         while (entries.hasMoreElements()) {
             String entryName = ((ZipEntry) entries.nextElement()).getName().replace("\\", "/");;
             if (entryName.contains("../")) {
-                Log.e("CLZipUtils", "entryName: " + entryName + " is dangerous!");
+                Log.e("CoZipTool", "entryName: " + entryName + " is dangerous!");
                 paths.add(entryName);
             } else {
                 paths.add(entryName);

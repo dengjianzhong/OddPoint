@@ -32,7 +32,7 @@
         android:paddingTop="76dp"
         android:paddingRight="16dp">
 
-        <com.zhong.utilslibrary.weight.CircleImageView
+        <com.zhong.toollib.weight.CircleImageView
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@mipmap/login_title" />

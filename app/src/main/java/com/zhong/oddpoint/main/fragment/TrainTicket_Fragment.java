@@ -18,8 +18,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.zaaach.citypicker.CityPickerActivity;
-import com.zhong.utilslibrary.database.DaoHelper;
-import com.zhong.utilslibrary.database.table.StationCode;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.activity.DateActivity;
 import com.zhong.oddpoint.main.activity.TicketListActivity;
@@ -28,6 +26,8 @@ import com.zhong.oddpoint.main.config.AppConfig;
 import com.zhong.oddpoint.main.config.TransformUtil;
 import com.zhong.oddpoint.main.port.StationCodeFinishListener;
 import com.zhong.oddpoint.main.request.CallStationCode;
+import com.zhong.toollib.database.StationCode;
+import com.zhong.toollib.helper.DaoHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.zhong.utilslibrary;
+package com.zhong.toollib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

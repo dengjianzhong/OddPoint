@@ -4,13 +4,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-
 import com.google.gson.Gson;
-import com.zhong.utilslibrary.database.table.StationCode;
 import com.zhong.oddpoint.main.bean.car_data;
 import com.zhong.oddpoint.main.bean.car_info;
 import com.zhong.oddpoint.main.port.Car_Info_Parse;
 import com.zhong.oddpoint.main.table.Parse_Data_Table;
+import com.zhong.toollib.database.StationCode;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
