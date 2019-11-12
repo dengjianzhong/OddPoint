@@ -50,10 +50,37 @@ import java.io.OutputStream;
 import java.net.URL;
 
 /**
- * The type Rx image tool.
- *
- * @author vondear
- * @date 2016 /1/24 图像工具类
+ * ----图像工具类-----
+ * 1、根据图片UIL生成
+ * 2、修改颜色透明度
+ * 3、bitmap转byteArr
+ * 4、byteArr转bitmap
+ * 5、drawable转bitmap
+ * 6、bitmap转drawable
+ * 7、drawable转byteArr
+ * 8、byteArr转drawable
+ * 9、计算采样大小
+ * 10、获取bitmap
+ * 11、缩放图片
+ * 12、倾斜图片
+ * 13、旋转图片
+ * 14、获取图片旋转角度
+ * 15、转为圆形图片
+ * 16、快速模糊
+ * 17、添加颜色边框
+ * 18、添加倒影
+ * 19、添加文字水印
+ * 20、添加图片水印
+ * 21、转为alpha位图
+ * 22、转为灰度图片
+ * 23、保存图片
+ * 24、根据文件名判断文件是否为图片
+ * 25、流获取图片类型
+ * 26、按缩放压缩
+ * 27、按质量压缩
+ * 28、按采样大小压缩
+ * 29、生成缩略图
+ * 30、创建的包含文字的图片，背景为透明
  */
 public class CoImageTool {
 
@@ -205,6 +232,7 @@ public class CoImageTool {
         return baos.toByteArray();
     }
 
+
     /**
      * byteArr转bitmap
      *
@@ -218,6 +246,7 @@ public class CoImageTool {
             return null;
         }
     }
+
 
     /**
      * drawable转bitmap
@@ -242,7 +271,6 @@ public class CoImageTool {
         drawable.draw(canvas);
         return bitmap;
     }
-
     /**
      * bitmap转drawable
      *
@@ -787,6 +815,7 @@ public class CoImageTool {
         return degree;
     }
 
+
     /**
      * 转为圆形图片
      *
@@ -1328,6 +1357,7 @@ public class CoImageTool {
         }
         return ret;
     }
+
 
     /**
      * 添加图片水印
