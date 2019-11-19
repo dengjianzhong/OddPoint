@@ -16,7 +16,6 @@ import android.view.View;
 
 import static com.zhong.toollib.weight.CoProgressBarView.ProgressStyleEnum.HORIZONTAL;
 
-
 /**
  * 进度条
  * 1、水平渐变进度条
@@ -167,7 +166,7 @@ public class CoProgressBarView extends View {
         String pro = currentProgress / maxProgress == 1 ? "已完成" : String.format(tipText, String.valueOf((int) ((currentProgress / maxProgress) * 100))) + "%";
         txtPaint.getTextBounds(pro, 0, pro.length(), textRect);
         Paint.FontMetricsInt fontMetrics = txtPaint.getFontMetricsInt();
-        txtBaseLine = (rectF2.top + (rectF2.bottom - rectF2.top - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top);
+        txtBaseLine = (rectF2.bottom + rectF2.top) / 2 - (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.top;
         txtPaint.setTextSize(textSize);
         txtPaint.setColor(shapeColor1);
         canvas.drawText(pro, (width - 20) / 2, txtBaseLine, txtPaint);
@@ -197,7 +196,7 @@ public class CoProgressBarView extends View {
             txtPaint.setTextSize(textSize);
             txtPaint.setColor(shapeColor1);
             Paint.FontMetricsInt fontMetrics = txtPaint.getFontMetricsInt();
-            float baselines = (rectF.top + (rectF.bottom - rectF.top - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top);
+            float baselines = (rectF.bottom + rectF.top) / 2 - (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.top;
             if (currentProgress / maxProgress == 1) {
                 txtPaint.setTextSize(30);
                 canvas.drawText("已完成", width / 2, baselines, txtPaint);
@@ -213,7 +212,7 @@ public class CoProgressBarView extends View {
             txtPaint.setColor(stopColor);
             txtPaint.setTextSize(textSize);
             Paint.FontMetricsInt fontMetrics = txtPaint.getFontMetricsInt();
-            float baselines = (rectF.top + (rectF.bottom - rectF.top - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top);
+            float baselines = (rectF.bottom + rectF.top) / 2 - (fontMetrics.bottom - fontMetrics.top) / 2 - fontMetrics.top;
             canvas.drawText("已暂停", width / 2, baselines, txtPaint);
         }
     }
