@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
@@ -20,6 +21,11 @@ import static com.zhong.toollib.weight.CoProgressBarView.ProgressStyleEnum.HORIZ
  * 进度条
  * 1、水平渐变进度条
  * 2、圆形渐变进度条
+ * 3、使用案解:coProgressView.setMaxProgress(59F)
+ *                 .setCircleRadius(65)
+ *                 .setProgressFontSize(35F)
+ *                 .setMode(CoProgressBarView.ProgressStyleEnum.CIRCLE)
+ *                 .setProgressBarHeight(40F);
  */
 public class CoProgressBarView extends View {
 
@@ -36,7 +42,7 @@ public class CoProgressBarView extends View {
     private int shapeColor2 = 0XFF5CE0F3;
     private int stopColor = 0XFFFF9800;
     private int completeColor = 0XFF009688;
-    private final float rrRadius = 20;
+    private final float rrRadius = 15;
     private int circleRadius = 60;
     private String tipText = "已下载%s";
     private ProgressStyleEnum progressStyleEnum = HORIZONTAL;
@@ -148,10 +154,13 @@ public class CoProgressBarView extends View {
     private void drawHorizontalProgress(Canvas canvas) {
         //绘制进度条边框
         shapePaint.setStyle(Paint.Style.STROKE);
-        shader = new LinearGradient(10, height / 2 - progressBarHeight, width - 10, height / 2 + progressBarHeight
-                , new int[]{shapeColor2, shapeColor1}, null, Shader.TileMode.MIRROR);
         RectF rectF1 = new RectF(10, height / 2 - progressBarHeight, width - 10, height / 2 + progressBarHeight);
         canvas.drawRoundRect(rectF1, rrRadius, rrRadius, shapePaint);
+
+        canvas.save();
+        Path path = new Path();
+        path.addRoundRect(rectF1, rrRadius, rrRadius, Path.Direction.CW);
+        canvas.clipPath(path);
 
         //绘制进度条
         float progress = (currentProgress / maxProgress) * (width - 10);
@@ -160,7 +169,7 @@ public class CoProgressBarView extends View {
         shapePaint.setShader(shader);
         shapePaint.setStyle(Paint.Style.FILL);
         RectF rectF2 = new RectF(10, height / 2 - progressBarHeight, progress, height / 2 + progressBarHeight);
-        canvas.drawRoundRect(rectF2, rrRadius, rrRadius, shapePaint);
+        canvas.drawRect(rectF2, shapePaint);
 
         //绘制进度文本
         String pro = currentProgress / maxProgress == 1 ? "已完成" : String.format(tipText, String.valueOf((int) ((currentProgress / maxProgress) * 100))) + "%";
@@ -170,6 +179,7 @@ public class CoProgressBarView extends View {
         txtPaint.setTextSize(textSize);
         txtPaint.setColor(shapeColor1);
         canvas.drawText(pro, (width - 20) / 2, txtBaseLine, txtPaint);
+        canvas.restore();
     }
 
 
@@ -225,7 +235,7 @@ public class CoProgressBarView extends View {
         float x = (width - 20) / 2;
         float y = txtBaseLine;
         float v = (width - 20) / 2 - width / 2;
-        float progressWidth = (currentProgress / maxProgress) * (width - 10);
+        float progressWidth = (currentProgress / maxProgress) * (width - 20);
         if (progressWidth > v) {
             txtPaint.setColor(Color.WHITE);
             canvas.save();//Canvas.CLIP_SAVE_FLAG
