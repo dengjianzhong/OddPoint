@@ -120,7 +120,7 @@ public final class CoZipTool {
     }
 
     /**
-     * Zip the file.
+     * Zip the file.。attris.xml
      *
      * @param srcFilePath The path of source file.
      * @param zipFilePath The path of ZIP file.

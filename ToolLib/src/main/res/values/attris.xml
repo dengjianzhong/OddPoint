@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CoProgressBarView">
+        <attr name="radius" format="dimension" />
+        <attr name="font_size" format="dimension" />
+        <attr name="max_progress" format="integer" />
+        <attr name="bar_height" format="dimension" />
+        <attr name="mode">
+            <enum name="HORIZONTAL" value="1" />
+            <enum name="CIRCLE" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>

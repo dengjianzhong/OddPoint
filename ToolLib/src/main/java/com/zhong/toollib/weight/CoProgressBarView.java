@@ -21,11 +21,6 @@ import static com.zhong.toollib.weight.CoProgressBarView.ProgressStyleEnum.HORIZ
  * 进度条
  * 1、水平渐变进度条
  * 2、圆形渐变进度条
- * 3、使用案解:coProgressView.setMaxProgress(59F)
- *                 .setCircleRadius(65)
- *                 .setProgressFontSize(35F)
- *                 .setMode(CoProgressBarView.ProgressStyleEnum.CIRCLE)
- *                 .setProgressBarHeight(40F);
  */
 public class CoProgressBarView extends View {
 
@@ -43,9 +38,9 @@ public class CoProgressBarView extends View {
     private int stopColor = 0XFFFF9800;
     private int completeColor = 0XFF009688;
     private final float rrRadius = 15;
-    private int circleRadius = 60;
+    private float circleRadius = 60;
     private String tipText = "已下载%s";
-    private ProgressStyleEnum progressStyleEnum = HORIZONTAL;
+    private int progressStyleEnum = HORIZONTAL.type;
     private Rect textRect;
     private float txtBaseLine;
     private LinearGradient shader;
@@ -71,6 +66,7 @@ public class CoProgressBarView extends View {
     public CoProgressBarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initParams();
+        initDate(attrs);
     }
 
     /**
@@ -83,6 +79,7 @@ public class CoProgressBarView extends View {
     public CoProgressBarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initParams();
+        initDate(attrs);
     }
 
     /**
@@ -97,8 +94,8 @@ public class CoProgressBarView extends View {
     public CoProgressBarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initParams();
+        initDate(attrs);
     }
-
 
     /**
      * Init params.
@@ -130,6 +127,33 @@ public class CoProgressBarView extends View {
         progressPaint.setDither(true);
     }
 
+
+    private void initDate(AttributeSet attrs) {
+//        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CoProgressBarView);
+//        for (int i = 0; i < typedArray.getIndexCount(); i++) {
+//            int arrayIndex = typedArray.getIndex(i);
+//            switch (arrayIndex) {
+//                case R.styleable.CoProgressBarView_bar_height:
+//                    progressBarHeight = typedArray.getDimension(arrayIndex, 20F);
+//                    break;
+//                case R.styleable.CoProgressBarView_font_size:
+//                    textSize = typedArray.getDimension(arrayIndex, 35F);
+//                    break;
+//                case R.styleable.CoProgressBarView_max_progress:
+//                    maxProgress = typedArray.getFloat(arrayIndex, 100);
+//                    break;
+//                case R.styleable.CoProgressBarView_radius:
+//                    circleRadius = typedArray.getDimension(arrayIndex, 60);
+//                    break;
+//                case R.styleable.CoProgressBarView_mode:
+//                    progressStyleEnum = typedArray.getInt(arrayIndex, HORIZONTAL.type);
+//                    break;
+//                default:
+//                    throw new IllegalStateException("Unexpected value: " + arrayIndex);
+//            }
+//        }
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -138,11 +162,11 @@ public class CoProgressBarView extends View {
         height = getMeasuredHeight();
 
         switch (progressStyleEnum) {
-            case HORIZONTAL:
+            case 1:
                 drawHorizontalProgress(canvas);
                 drawColorProgressText(canvas);
                 break;
-            case CIRCLE:
+            case 2:
                 drawCircleProgress(canvas);
                 break;
         }
@@ -253,7 +277,7 @@ public class CoProgressBarView extends View {
      * @param progressStyleEnum the progress style enum
      */
     public CoProgressBarView setMode(ProgressStyleEnum progressStyleEnum) {
-        this.progressStyleEnum = progressStyleEnum;
+        this.progressStyleEnum = progressStyleEnum.type;
         return this;
     }
 
@@ -347,17 +371,17 @@ public class CoProgressBarView extends View {
     public enum ProgressStyleEnum {
 
         /**
-         * Horizontal progress style enum.
+         * 水平进度条
          */
-        HORIZONTAL("水平进度条"),
+        HORIZONTAL(1),
         /**
-         * Circle progress style enum.
+         * 圆形进度条
          */
-        CIRCLE("圆形进度条");
+        CIRCLE(2);
 
-        private String type;
+        private int type;
 
-        ProgressStyleEnum(String type) {
+        ProgressStyleEnum(int type) {
             this.type = type;
         }
     }
