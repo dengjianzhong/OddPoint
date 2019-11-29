@@ -156,7 +156,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void run() {
                             View view = getLayoutInflater().inflate(R.layout.data_load, null);
-                            loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view, Gravity.CENTER);
+                            loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this,view, Gravity.CENTER);
                             callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                         }
                     });
