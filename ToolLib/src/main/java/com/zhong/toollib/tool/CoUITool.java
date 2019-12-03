@@ -84,6 +84,18 @@ public class CoUITool {
         window.setAttributes(lp);
     }
 
+    /**
+     * 设置当前窗口亮度
+     *
+     * @param brightness
+     */
+    private static void setWindowBrightness(Context context, int brightness) {
+        Window window = ((Activity) context).getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.screenBrightness = brightness != -1 ? brightness / 255F : brightness;
+        window.setAttributes(lp);
+    }
+
 
     /**
      * dip转px
