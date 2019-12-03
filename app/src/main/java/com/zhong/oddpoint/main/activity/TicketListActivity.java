@@ -156,7 +156,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void run() {
                             View view = getLayoutInflater().inflate(R.layout.data_load, null);
-                            loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this,view, Gravity.CENTER);
+                            loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this, view, Gravity.CENTER);
                             callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                         }
                     });
@@ -278,7 +278,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.more_view://筛选车次
                 View view = getLayoutInflater().inflate(R.layout.popup_layout, null);
-                popupWindow = PopupFactory.showPopupWindow(this,view,Gravity.BOTTOM);
+                popupWindow = PopupFactory.showPopupWindow(this, view, Gravity.BOTTOM);
                 view.findViewById(R.id.close_popup).setOnClickListener(this);
                 view.findViewById(R.id.AllCarLayout).setOnClickListener(this);
                 view.findViewById(R.id.GDCCarLayout).setOnClickListener(this);
@@ -314,7 +314,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.GONE);
                 popupWindow.dismiss();
                 View view01 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view01,Gravity.CENTER);
+                loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this, view01, Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 200);
                 break;
             case R.id.GDCCarLayout://只查看GDC车型
@@ -325,7 +325,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.GONE);
                 this.popupWindow.dismiss();
                 View view02 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view02,Gravity.CENTER);
+                loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this, view02, Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 201);
                 break;
             case R.id.KCarLayout://只查看火车
@@ -336,7 +336,7 @@ public class TicketListActivity extends AppCompatActivity implements View.OnClic
                 k_car.setVisibility(View.VISIBLE);
                 this.popupWindow.dismiss();
                 View view03 = getLayoutInflater().inflate(R.layout.data_load, null);
-                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view03,Gravity.CENTER);
+                loadPopup = PopupFactory.loadPopupWindow(TicketListActivity.this, view03, Gravity.CENTER);
                 callInfo.requestCartIdInfo(false, start_date, start_stationCode, end_stationCode, 202);
 
                 break;

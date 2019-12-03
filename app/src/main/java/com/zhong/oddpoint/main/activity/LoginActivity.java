@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -25,11 +26,15 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.zhong.toollib.broccoli.Broccoli;
+import com.zhong.toollib.broccoli.BroccoliGradientDrawable;
+import com.zhong.toollib.broccoli.PlaceholderParameter;
 import com.zhong.toollib.factory.PopupFactory;
 import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.bean.login_result;
 import com.zhong.oddpoint.main.bean.verificationCode;
 import com.zhong.oddpoint.main.bean.verify_result;
+import com.zhong.toollib.tool.CoZipTool;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -149,9 +154,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
     }
 
     private void initData() {
-
         lf_login.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
         lf_login.getPaint().setAntiAlias(true);//抗锯齿
+
+        Broccoli broccoli = new Broccoli();
+
+        broccoli.addPlaceholder(new PlaceholderParameter.Builder()
+                .setView(findViewById(R.id.button))
+                .setDrawable(new BroccoliGradientDrawable(Color.parseColor("#DDDDDD"),
+                        Color.parseColor("#CCCCCC"), 0, 1000, new LinearInterpolator()))
+                .build());
+        broccoli.show();
+
     }
 
     public void setStatusBar() {
@@ -198,7 +212,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                 View view01 = getLayoutInflater().inflate(R.layout.data_load, null);
                 TextView status_text = view01.findViewById(R.id.status_tex);
                 status_text.setText("登录中...");
-                loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(), view01, Gravity.CENTER);
+                loadPopup = PopupFactory.loadPopupWindow(LoginActivity.this, view01, Gravity.CENTER);
 
                 getLoginParameter();
                 graphicVerification();
@@ -210,6 +224,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
         } else {
             handler.sendEmptyMessage(102);
         }
+
+//        try {
+//            boolean zipFile = CoZipTool.zipFile("/mnt/sdcard/down/log/downLog.1.txt", "/mnt/sdcard/email/aa.zip");
+//            if (zipFile){
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     //------图文校验------

@@ -92,7 +92,7 @@ public class StopActivity extends AppCompatActivity implements StopDataListener,
                         @Override
                         public void run() {
                             View view = getLayoutInflater().inflate(R.layout.data_load, null);
-                            loadPopup = PopupFactory.loadPopupWindow(getApplicationContext(),view, Gravity.CENTER);
+                            loadPopup = PopupFactory.loadPopupWindow(StopActivity.this,view, Gravity.CENTER);
                             new CallStopData(StopActivity.this).CallData(dataset,start_time);
                         }
                     });

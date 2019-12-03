@@ -15,10 +15,15 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -37,27 +42,28 @@ public class CallInfo {
     private String date;
     private StationCode start_stationCode;
     private StationCode end_stationCode;
-    private String from_station="CQW";
-    private String to_station="WYW";
-    private String start_city="重庆";
-    private String end_city="万州";
-    private int cartype=200;
+    private String from_station = "CQW";
+    private String to_station = "WYW";
+    private String start_city = "重庆";
+    private String end_city = "万州";
+    private int cartype = 200;
+    private Map<String, List<Cookie>> cookieMap = new HashMap<>();
 
     public CallInfo(Handler handler, Car_Info_Parse carInfoParse) {
         this.handler = handler;
-        this.carInfoParse=carInfoParse;
+        this.carInfoParse = carInfoParse;
         ObtainDate();
     }
 
-    public void ObtainDate(){
+    public void ObtainDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date d = new Date(System.currentTimeMillis());
         date = simpleDateFormat.format(d);
     }
 
-    public void requestCartIdInfo(boolean flush,String date,StationCode from_station,StationCode to_station,int cartype) {
+    public void requestCartIdInfo(boolean flush, String date, StationCode from_station, StationCode to_station, int cartype) {
         this.flush = flush;
-        this.cartype=cartype;
+        this.cartype = cartype;
         if (!TextUtils.isEmpty(date)) {
             this.date = date;
         }
@@ -66,10 +72,21 @@ public class CallInfo {
             this.end_stationCode = to_station;
 
             car_data_list.clear();
-            OkHttpClient okHttpClient = new OkHttpClient();
+            OkHttpClient okHttpClient = new OkHttpClient.Builder().cookieJar(new CookieJar() {
+                @Override
+                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                    cookieMap.put(url.host(), cookies);
+                }
+
+                @Override
+                public List<Cookie> loadForRequest(HttpUrl url) {
+                    return cookieMap.size() > 0 && cookieMap.get(url.host()) != null ? cookieMap.get(url.host()) : new ArrayList<Cookie>();
+                }
+            }).build();
             Request request = new Request.Builder()
                     .url("https://kyfw.12306.cn/otn/leftTicket/query?leftTicketDTO.train_date=" + date + "&leftTicketDTO.from_station=" + start_stationCode.getStation_code() + "&leftTicketDTO.to_station=" + end_stationCode.getStation_code() + "&purpose_codes=ADULT")
                     .get()
+                    .addHeader("Cookie","JSESSIONID=BC0BF7B15C20A2539D531A7BCC8D3683")
                     .build();
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
@@ -102,9 +119,9 @@ public class CallInfo {
                         //添加票价查询信息
                         car_data car_data = new car_data();
                         String s = Parse_Data_Table.parse_city_code(from_station);
-                        start_city=TextUtils.isEmpty(s)?start_city:s;
+                        start_city = TextUtils.isEmpty(s) ? start_city : s;
                         String s1 = Parse_Data_Table.parse_city_code(to_station);
-                        end_city=TextUtils.isEmpty(s1)?end_city:s1;
+                        end_city = TextUtils.isEmpty(s1) ? end_city : s1;
                         car_data.setStart_site_code(split[5]);
                         car_data.setEnd_site_code(split[6]);
                         car_data.setTrain_no(split[1]);
@@ -112,7 +129,7 @@ public class CallInfo {
                         car_data.setTo_station_no(split[16]);
                         car_data.setSeat_types(split[34]);
                         if (split[2].contains("C") || split[2].contains("G") || split[2].contains("D")) {
-                            if(cartype==200||cartype==201) {
+                            if (cartype == 200 || cartype == 201) {
                                 car_data.setStart_time(split[12]);
                                 car_data.setCar_id(split[2]);
                                 car_data.setStart_time(split[7]);
@@ -126,7 +143,7 @@ public class CallInfo {
                                 car_data_list.add(car_data);
                             }
                         } else {
-                            if(cartype==200||cartype==202) {
+                            if (cartype == 200 || cartype == 202) {
                                 car_data.setStart_time(split[12]);
                                 car_data.setCar_id(split[2]);
                                 car_data.setStart_time(split[7]);
@@ -167,15 +184,15 @@ public class CallInfo {
                         }
                     }
                 }
-                if (flush){
+                if (flush) {
                     carInfoParse.refreshSuccessfully(200);
                 }
                 Message message = handler.obtainMessage();
                 message.what = 200;
                 message.obj = car_data_list;
                 handler.sendMessage(message);
-            }else {
-                if (flush){
+            } else {
+                if (flush) {
                     carInfoParse.refreshSuccessfully(200);
                 }
                 handler.sendEmptyMessage(403);
