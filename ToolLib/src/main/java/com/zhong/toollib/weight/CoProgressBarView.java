@@ -152,6 +152,7 @@ public class CoProgressBarView extends View {
 //                    throw new IllegalStateException("Unexpected value: " + arrayIndex);
 //            }
 //        }
+//        typedArray.recycle();
     }
 
     @Override
