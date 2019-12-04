@@ -21,7 +21,7 @@ public class DashLineView extends View {
     private Path path;
     private Paint stampPain;
     private float radius = 20F;
-    private boolean enableStamp = true;
+    private boolean enableStamp = false;
 
     /**
      * Instantiates a new Dash line view.
@@ -94,7 +94,7 @@ public class DashLineView extends View {
         path.moveTo(0, startY);
         path.lineTo(width, startY);
         canvas.drawPath(path, paint);
-//        path.addCircle(0, startY, 10, Path.Direction.CW);
+//        path.addCircle(3, 3, 3, Path.Direction.CW);
 //        paint.setPathEffect(new PathDashPathEffect(path, 15, 0, PathDashPathEffect.Style.ROTATE));
 //        paint.setShader(new LinearGradient(0, startY, width, startY, new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT}, null, Shader.TileMode.CLAMP));
 
