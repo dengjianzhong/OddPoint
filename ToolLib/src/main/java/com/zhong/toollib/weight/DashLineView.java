@@ -22,7 +22,7 @@ public class DashLineView extends View {
     private Paint stampPain;
     private float radius = 20F;
     private boolean enableStamp = true;
-    private DashModeEnum mode= DashModeEnum.HORIZONTAL;
+    private DashModeEnum mode = DashModeEnum.HORIZONTAL;
 
     /**
      * Instantiates a new Dash line view.
@@ -93,10 +93,10 @@ public class DashLineView extends View {
         int statX = width / 2;
 
         path.reset();
-        if (mode== DashModeEnum.HORIZONTAL) {
+        if (mode == DashModeEnum.HORIZONTAL) {
             path.moveTo(0, startY);
             path.lineTo(width, startY);
-        }else {
+        } else {
             path.moveTo(statX, 0);
             path.lineTo(statX, height);
         }
@@ -108,11 +108,19 @@ public class DashLineView extends View {
 
         // TODO: 2019/12/4 0004 绘制邮票样式
         if (enableStamp) {
-            RectF leftRectF = new RectF(-radius, startY - radius, radius, startY + radius);
-            canvas.drawArc(leftRectF, -90F, 180, false, stampPain);
+            if (mode == DashModeEnum.HORIZONTAL) {
+                RectF leftRectF = new RectF(-radius, startY - radius, radius, startY + radius);
+                canvas.drawArc(leftRectF, -90F, 180, false, stampPain);
 
-            RectF rightRectF = new RectF(width - radius, startY - radius, width + radius, startY + radius);
-            canvas.drawArc(rightRectF, 90F, 180, false, stampPain);
+                RectF rightRectF = new RectF(width - radius, startY - radius, width + radius, startY + radius);
+                canvas.drawArc(rightRectF, 90F, 180, false, stampPain);
+            }else {
+                RectF leftRectF = new RectF(statX-radius,  - radius, statX+radius, radius);
+                canvas.drawArc(leftRectF, 0F, 180, false, stampPain);
+
+                RectF rightRectF = new RectF(statX-radius,  height- radius, statX+radius, height+radius);
+                canvas.drawArc(rightRectF, -180, 180, false, stampPain);
+            }
         }
     }
 
