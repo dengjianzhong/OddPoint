@@ -21,7 +21,8 @@ public class DashLineView extends View {
     private Path path;
     private Paint stampPain;
     private float radius = 20F;
-    private boolean enableStamp = false;
+    private boolean enableStamp = true;
+    private DashModeEnum mode= DashModeEnum.HORIZONTAL;
 
     /**
      * Instantiates a new Dash line view.
@@ -75,7 +76,7 @@ public class DashLineView extends View {
         paint.setStrokeWidth(1F);
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(0XFF4D4D4D);
-        paint.setPathEffect(new DashPathEffect(new float[]{10F, 5F}, 0));
+        paint.setPathEffect(new DashPathEffect(new float[]{10F, 7F}, 0));
 
         stampPain = new Paint(Paint.ANTI_ALIAS_FLAG);
         stampPain.setStrokeWidth(1F);
@@ -89,11 +90,18 @@ public class DashLineView extends View {
     protected void onDraw(Canvas canvas) {
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         int startY = height / 2;
+        int statX = width / 2;
 
         path.reset();
-        path.moveTo(0, startY);
-        path.lineTo(width, startY);
+        if (mode== DashModeEnum.HORIZONTAL) {
+            path.moveTo(0, startY);
+            path.lineTo(width, startY);
+        }else {
+            path.moveTo(statX, 0);
+            path.lineTo(statX, height);
+        }
         canvas.drawPath(path, paint);
+
 //        path.addCircle(3, 3, 3, Path.Direction.CW);
 //        paint.setPathEffect(new PathDashPathEffect(path, 15, 0, PathDashPathEffect.Style.ROTATE));
 //        paint.setShader(new LinearGradient(0, startY, width, startY, new int[]{Color.TRANSPARENT, Color.BLACK, Color.BLACK, Color.TRANSPARENT}, null, Shader.TileMode.CLAMP));
@@ -132,5 +140,26 @@ public class DashLineView extends View {
      */
     public void setStampRadius(float radius) {
         this.radius = radius;
+    }
+
+    public void setMode(DashModeEnum mode) {
+        this.mode = mode;
+    }
+
+    public enum DashModeEnum {
+        /**
+         * 水平虚线
+         */
+        HORIZONTAL(1),
+        /**
+         * 垂直虚线
+         */
+        VERTICAL(2);
+
+        private int type;
+
+        DashModeEnum(int type) {
+            this.type = type;
+        }
     }
 }
