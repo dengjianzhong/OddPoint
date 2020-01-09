@@ -13,6 +13,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.zhong.toollib.R;
+
 
 /**
  * PopupWindow工厂类
@@ -67,6 +69,38 @@ public class PopupFactory {
         return popupWindow;
     }
 
+    public static PopupWindow showFileChoose(Context context, final IFormCloseListener iFormCloseListener, final View view, int position) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        Activity activity = (Activity) context;
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        PopupWindow popupWindow = new PopupWindow(view, displayMetrics.widthPixels, -2);
+        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
+        popupWindow.setOutsideTouchable(false);
+        popupWindow.setFocusable(true);
+
+        //打开弹窗，背景变暗淡
+        window = ((Activity) context).getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams attributes = window.getAttributes();
+        attributes.alpha = 0.5f;
+        window.setAttributes(attributes);
+
+        popupWindow.showAtLocation(view, position, 0, 0);
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                //背景恢复正常
+                WindowManager.LayoutParams attributes1 = window.getAttributes();
+                attributes1.alpha = 1f;
+                window.setAttributes(attributes1);
+                iFormCloseListener.onClose();
+            }
+        });
+        return popupWindow;
+    }
+
     private static AnimationSet setAnimation() {
         AnimationSet animationSet = new AnimationSet(true);
         animationSet.setDuration(200);
@@ -87,8 +121,7 @@ public class PopupFactory {
         return displayMetrics.heightPixels;
     }
 
-    private static int dip2px(Context context, float dipValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dipValue * scale + 0.5f);
+    public interface IFormCloseListener{
+        void onClose();
     }
 }

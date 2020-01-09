@@ -271,6 +271,7 @@ public class CoImageTool {
         drawable.draw(canvas);
         return bitmap;
     }
+
     /**
      * bitmap转drawable
      *
