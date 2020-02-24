@@ -13,7 +13,7 @@ import com.zhong.oddpoint.main.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class DateActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener, View.OnClickListener {
+public  class DateActivity extends AppCompatActivity implements CalendarView.OnDateChangeListener, View.OnClickListener {
 
     private CalendarView calendarView;
     private String month,day;
