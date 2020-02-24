@@ -1,1 +1,4 @@
+*.iml
 /build
+/src/androidTest
+/src/test

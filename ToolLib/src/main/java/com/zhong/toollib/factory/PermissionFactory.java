@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,32 +50,28 @@ public class PermissionFactory {
     public static void checkNotificationIsEnabel(Context context) {
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
             gotoNotificationSetting(context);
-
-            PopupFactory.showPopupWindow(context,initView(context), Gravity.BOTTOM);
         }
     }
 
-    private static View initView(Context context){
+    private static View initView(Context context) {
         int padding = dip2px(context, 20);
-        layoutParams = new RelativeLayout.LayoutParams(dip2px(context,500),dip2px(context,260));
-        RelativeLayout relativeLayout=new RelativeLayout(context);
-        relativeLayout.setLayoutParams(layoutParams);
-        relativeLayout.setPaddingRelative(padding,padding,padding,padding);
+        RelativeLayout relativeLayout = new RelativeLayout(context);
+        relativeLayout.setPaddingRelative(padding, padding, padding, padding);
 
-        GradientDrawable gradientDrawable=new GradientDrawable();
+        GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(13);
         gradientDrawable.setColor(Color.WHITE);
 
         relativeLayout.setBackground(gradientDrawable);
 
-        layoutParams = new RelativeLayout.LayoutParams(-2,-2);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP|RelativeLayout.CENTER_HORIZONTAL);
-        TextView tipTextView=new TextView(context);
+        layoutParams = new RelativeLayout.LayoutParams(-2, -2);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP | RelativeLayout.CENTER_HORIZONTAL);
+        TextView tipTextView = new TextView(context);
         tipTextView.setLayoutParams(layoutParams);
         tipTextView.setTextColor(Color.BLACK);
         tipTextView.setEms(13);
         tipTextView.setMaxLines(10);
-        tipTextView.setLineSpacing(1.5F,0);
+        tipTextView.setLineSpacing(1.5F, 0);
         relativeLayout.addView(tipTextView);
 
         return relativeLayout;
@@ -97,11 +92,14 @@ public class PermissionFactory {
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                 //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, pkg);
-                intent.putExtra(Settings.EXTRA_CHANNEL_ID, uid);
-                //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
-                intent.putExtra("app_package", pkg);
-                intent.putExtra("app_uid", uid);
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N_MR1) {
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, pkg);
+                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, uid);
+                } else {
+                    //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
+                    intent.putExtra("app_package", pkg);
+                    intent.putExtra("app_uid", uid);
+                }
                 activity.startActivityForResult(intent, requestCode);
             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
                 Intent intent = new Intent();
@@ -118,6 +116,7 @@ public class PermissionFactory {
             activity.startActivityForResult(intent, requestCode);
         }
     }
+
     private static int dip2px(Context context, float dipValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
