@@ -3,7 +3,8 @@ package com.zhong.toollib.helper;
 import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
-import com.zhong.toollib.database.BaseBean;
+import com.j256.ormlite.table.TableUtils;
+import com.zhong.toollib.database.BaseDBBean;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,10 +24,19 @@ public class DaoHelper {
      * @param context   the context
      * @param tableBean the table bean
      */
-    public DaoHelper(Context context, Class<? extends BaseBean> tableBean) {
+    public DaoHelper(Context context, Class<? extends BaseDBBean> tableBean) {
         try {
             dbHelper = SqlLiteDBHelper.getManager(context);
             dao = dbHelper.getDao(tableBean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createTable(Class<? extends BaseDBBean> tableBean){
+        try {
+            if (dao.isTableExists())
+            TableUtils.createTable(dao.getConnectionSource(),tableBean);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,7 +47,7 @@ public class DaoHelper {
      *
      * @param bean the bean
      */
-    public void insert(BaseBean bean) {
+    public void insert(BaseDBBean bean) {
         try {
             dao.create(bean);
         } catch (SQLException e) {
@@ -48,11 +58,11 @@ public class DaoHelper {
     /**
      * 删除user表中的一条数据
      *
-     * @param baseBean the entry bean
+     * @param baseDBBean the entry bean
      */
-    public void delete(BaseBean baseBean) {
+    public void delete(BaseDBBean baseDBBean) {
         try {
-            dao.delete(baseBean);
+            dao.delete(baseDBBean);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,11 +71,11 @@ public class DaoHelper {
     /**
      * 修改user表中的一条数据
      *
-     * @param baseBean the entry bean
+     * @param baseDBBean the entry bean
      */
-    public void update(BaseBean baseBean) {
+    public void update(BaseDBBean baseDBBean) {
         try {
-            dao.update(baseBean);
+            dao.update(baseDBBean);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,10 +132,10 @@ public class DaoHelper {
      * @param id the id
      * @return the station code
      */
-    public BaseBean queryById(int id) {
-        BaseBean user = null;
+    public BaseDBBean queryById(int id) {
+        BaseDBBean user = null;
         try {
-            user = (BaseBean) dao.queryForId(id);
+            user = (BaseDBBean) dao.queryForId(id);
         } catch (SQLException e) {
             e.printStackTrace();
         }

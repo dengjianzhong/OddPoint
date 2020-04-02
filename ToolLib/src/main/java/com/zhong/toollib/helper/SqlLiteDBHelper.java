@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 
 public class SqlLiteDBHelper extends OrmLiteSqliteOpenHelper {
-    private static final int DB_VERSION = 11;
+    private static final int DB_VERSION = 13;
     private static final String databaseName = "ormlite_db";
     private static SqlLiteDBHelper dbHelper;
     private Dao dao;
@@ -58,6 +58,10 @@ public class SqlLiteDBHelper extends OrmLiteSqliteOpenHelper {
     public synchronized Dao getDao(Class tableClass) throws SQLException {
         dao = super.getDao(tableClass);
         return dao;
+    }
+
+    public ConnectionSource getConnectSource() {
+        return getConnectionSource();
     }
 
     @Override

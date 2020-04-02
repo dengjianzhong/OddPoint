@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 /**
  * 用于数据库表的基类Bean
  */
-public abstract class BaseBean {
+public abstract class BaseDBBean {
     @DatabaseField(generatedId = true)
     private int id;
 

@@ -37,8 +37,10 @@ public class PermissionFactory {
      * @param permission the permission
      */
     public void PermissionRequest(String[] permission) {
-        if (ContextCompat.checkSelfPermission(context, permission[0]) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((Activity) context, permission, 200);
+        for (String permissionName : permission) {
+            if (ContextCompat.checkSelfPermission(context, permissionName) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions((Activity) context, new String[]{permissionName}, 200);
+            }
         }
     }
 
@@ -52,31 +54,31 @@ public class PermissionFactory {
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
             gotoNotificationSetting(context);
 
-            PopupFactory.showPopupWindow(context,initView(context), Gravity.BOTTOM);
+            PopupFactory.showPopupWindow(context, initView(context), Gravity.BOTTOM);
         }
     }
 
-    private static View initView(Context context){
+    private static View initView(Context context) {
         int padding = dip2px(context, 20);
-        layoutParams = new RelativeLayout.LayoutParams(dip2px(context,500),dip2px(context,260));
-        RelativeLayout relativeLayout=new RelativeLayout(context);
+        layoutParams = new RelativeLayout.LayoutParams(dip2px(context, 500), dip2px(context, 260));
+        RelativeLayout relativeLayout = new RelativeLayout(context);
         relativeLayout.setLayoutParams(layoutParams);
-        relativeLayout.setPaddingRelative(padding,padding,padding,padding);
+        relativeLayout.setPaddingRelative(padding, padding, padding, padding);
 
-        GradientDrawable gradientDrawable=new GradientDrawable();
+        GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setCornerRadius(13);
         gradientDrawable.setColor(Color.WHITE);
 
         relativeLayout.setBackground(gradientDrawable);
 
-        layoutParams = new RelativeLayout.LayoutParams(-2,-2);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP|RelativeLayout.CENTER_HORIZONTAL);
-        TextView tipTextView=new TextView(context);
+        layoutParams = new RelativeLayout.LayoutParams(-2, -2);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP | RelativeLayout.CENTER_HORIZONTAL);
+        TextView tipTextView = new TextView(context);
         tipTextView.setLayoutParams(layoutParams);
         tipTextView.setTextColor(Color.BLACK);
         tipTextView.setEms(13);
         tipTextView.setMaxLines(10);
-        tipTextView.setLineSpacing(1.5F,0);
+        tipTextView.setLineSpacing(1.5F, 0);
         relativeLayout.addView(tipTextView);
 
         return relativeLayout;
@@ -118,6 +120,7 @@ public class PermissionFactory {
             activity.startActivityForResult(intent, requestCode);
         }
     }
+
     private static int dip2px(Context context, float dipValue) {
         float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);

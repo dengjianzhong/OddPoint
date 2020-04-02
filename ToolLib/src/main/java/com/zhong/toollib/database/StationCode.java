@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 
 @DatabaseTable(tableName = "StationCode")
-public class StationCode extends BaseBean implements Serializable {
+public class StationCode extends BaseDBBean implements Serializable {
     @DatabaseField(columnName = "station_name")
     private String station_name;
     @DatabaseField(columnName = "station_code")
