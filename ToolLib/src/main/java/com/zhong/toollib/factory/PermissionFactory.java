@@ -54,7 +54,7 @@ public class PermissionFactory {
         if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
             gotoNotificationSetting(context);
 
-            PopupFactory.showPopupWindow(context, initView(context), Gravity.BOTTOM);
+            PopupFactory.showPopupWindow(context,initView(context), Gravity.BOTTOM);
         }
     }
 
