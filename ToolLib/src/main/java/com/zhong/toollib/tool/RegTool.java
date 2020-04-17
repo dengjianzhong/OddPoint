@@ -8,26 +8,26 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.zhong.toollib.tool.CoConstTool.REGEX_CHZ;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_DATE;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_EMAIL;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD15;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_IDCARD18;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_IP;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_MOBILE_EXACT;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_MOBILE_SIMPLE;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_TEL;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_URL;
-import static com.zhong.toollib.tool.CoConstTool.REGEX_USERNAME;
-import static com.zhong.toollib.tool.CoDataTool.isNullString;
+import static com.zhong.toollib.tool.ConstTool.REGEX_CHZ;
+import static com.zhong.toollib.tool.ConstTool.REGEX_DATE;
+import static com.zhong.toollib.tool.ConstTool.REGEX_EMAIL;
+import static com.zhong.toollib.tool.ConstTool.REGEX_IDCARD;
+import static com.zhong.toollib.tool.ConstTool.REGEX_IDCARD15;
+import static com.zhong.toollib.tool.ConstTool.REGEX_IDCARD18;
+import static com.zhong.toollib.tool.ConstTool.REGEX_IP;
+import static com.zhong.toollib.tool.ConstTool.REGEX_MOBILE_EXACT;
+import static com.zhong.toollib.tool.ConstTool.REGEX_MOBILE_SIMPLE;
+import static com.zhong.toollib.tool.ConstTool.REGEX_TEL;
+import static com.zhong.toollib.tool.ConstTool.REGEX_URL;
+import static com.zhong.toollib.tool.ConstTool.REGEX_USERNAME;
+import static com.zhong.toollib.tool.DataTool.isNullString;
 
 /**
  * @author Vondear
  * @date 2017/3/15
  */
 
-public class CoRegTool {
+public class RegTool {
     //--------------------------------------------正则表达式-----------------------------------------
     /**
      * 原文链接：http://caibaojian.com/regexp-example.html

@@ -9,11 +9,11 @@ import static android.Manifest.permission.VIBRATE;
 /**
  * 震动工具类
  */
-public final class CoVibrateTool {
+public final class VibrateTool {
 
     private static Vibrator vibrator;
 
-    private CoVibrateTool() {
+    private VibrateTool() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

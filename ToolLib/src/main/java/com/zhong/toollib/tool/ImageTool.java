@@ -82,7 +82,7 @@ import java.net.URL;
  * 29、生成缩略图
  * 30、创建的包含文字的图片，背景为透明
  */
-public class CoImageTool {
+public class ImageTool {
 
     /**
      * 得到本地或者网络上的bitmap url - 网络或者本地图片的绝对路径,比如:

@@ -9,7 +9,7 @@ import android.view.WindowManager;
 /**
  * The type CoUITool.
  */
-public class CoUITool {
+public class UITool {
     private static DisplayMetrics displayMetrics;
 
     /**

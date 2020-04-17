@@ -26,11 +26,11 @@ import java.util.zip.ZipOutputStream;
  *     desc  : utils about zip
  * </pre>
  */
-public final class CoZipTool {
+public final class ZipTool {
 
     private static final int BUFFER_LEN = 8192;
 
-    private CoZipTool() {
+    private ZipTool() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 

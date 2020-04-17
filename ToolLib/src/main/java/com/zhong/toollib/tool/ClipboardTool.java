@@ -12,7 +12,7 @@ import android.net.Uri;
  * @date 2016/12/21
  */
 
-public class CoClipboardTool {
+public class ClipboardTool {
     /**
      * 复制文本到剪贴板
      *

@@ -14,9 +14,9 @@ import java.util.List;
 /**
  * 储存卡工具类
  */
-public final class CoSDCardUtils {
+public final class SDCardUtils {
 
-    private CoSDCardUtils() {
+    private SDCardUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
