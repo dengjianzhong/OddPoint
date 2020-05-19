@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -35,11 +40,13 @@ dependencies {
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
     implementation 'com.zaaach:citypicker:1+'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'de.hdodenhof:circleimageview:+'//圆形图片
-    implementation 'com.airbnb.android:lottie:2.1.0'//加载JSON动画
-    implementation "com.android.support:support-emoji-bundled:+"
+    implementation 'de.hdodenhof:circleimageview:+'
+    //圆形图片
+    implementation 'com.airbnb.android:lottie:2.1.0'
+    //加载JSON动画
+    implementation 'com.android.support:support-emoji-bundled:+'
     implementation 'com.android.support:cardview-v7:28.0.0'
-
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'//图片选择框架+拍照+录制视频
-//    implementation 'me.samlss:broccoli:+'//占位View
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.4'
+    //图片选择框架+拍照+录制视频
+    //    implementation 'me.samlss:broccoli:+'//占位View
 }

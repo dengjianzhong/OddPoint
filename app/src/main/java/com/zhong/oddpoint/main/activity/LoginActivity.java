@@ -34,7 +34,7 @@ import com.zhong.oddpoint.main.R;
 import com.zhong.oddpoint.main.bean.login_result;
 import com.zhong.oddpoint.main.bean.verificationCode;
 import com.zhong.oddpoint.main.bean.verify_result;
-import com.zhong.toollib.tool.CoZipTool;
+import com.zhong.toollib.helper.DaoHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -165,7 +165,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnTouchList
                         Color.parseColor("#CCCCCC"), 0, 1000, new LinearInterpolator()))
                 .build());
         broccoli.show();
-
     }
 
     public void setStatusBar() {

@@ -1,5 +1,8 @@
 package com.zhong.toollib.helper;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -20,6 +23,7 @@ public class ThreadPoolHelper {
     private static ThreadPoolHelper threadPoolHelper;
 
     private ThreadPoolHelper() {
+        Handler mainHandler=new Handler(Looper.getMainLooper());
     }
 
     private ThreadPoolExecutor initThreadPool() {
