@@ -1,8 +1,5 @@
 package com.zhong.toollib.helper;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -23,26 +20,46 @@ public class ThreadPoolHelper {
     private static ThreadPoolHelper threadPoolHelper;
 
     private ThreadPoolHelper() {
-        Handler mainHandler=new Handler(Looper.getMainLooper());
+        executorService = threadPoolHelper.initThreadPool();
     }
 
     private ThreadPoolExecutor initThreadPool() {
         BlockingQueue blockingQueue = new LinkedBlockingDeque<Runnable>(512);
-        ThreadPoolExecutor executorService = new ThreadPoolExecutor(corePoolNumber, corePoolNumber * 2, 1L, TimeUnit.SECONDS, blockingQueue);
+        ThreadPoolExecutor executorService = new ThreadPoolExecutor(corePoolNumber, corePoolNumber * 2,
+                1L, TimeUnit.SECONDS, blockingQueue);
         return executorService;
     }
 
-    public static ExecutorService getWorkThread() {
-        synchronized (ThreadPoolHelper.class) {
-            if (threadPoolHelper == null && executorService == null) {
-                threadPoolHelper = new ThreadPoolHelper();
-                executorService = threadPoolHelper.initThreadPool();
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+    public static ThreadPoolHelper getInstance() {
+        if (threadPoolHelper == null) {
+            synchronized (ThreadPoolHelper.class) {
+                if (threadPoolHelper == null) {
+                    threadPoolHelper = new ThreadPoolHelper();
+                }
             }
         }
-        return executorService;
+        return threadPoolHelper;
     }
 
-    public static void closeThreadPool() {
+    /**
+     * 执行异步任务
+     *
+     * @param runnable the runnable
+     */
+    public void execute(Runnable runnable) {
+        executorService.execute(runnable);
+    }
+
+
+    /**
+     * 关闭线程池
+     */
+    public void closeThreadPool() {
         if (executorService != null) {
             executorService.shutdown();
         }

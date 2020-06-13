@@ -6,3 +6,7 @@
 /build
 /captures
 .externalNativeBuild
+/voiplib/src/androidTest/java/com/zhong/voiplib/
+/voiplib/src/test/java/com/zhong/voiplib/
+/voiplib/src/androidTest/java/com/zhong/voiplib/ExampleInstrumentedTest.java
+/voiplib/src/test/java/com/zhong/voiplib/ExampleUnitTest.java
